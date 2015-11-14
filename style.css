@@ -1,152 +1,160 @@
 body {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     font-family: Ubuntu Mono;
-    background-color:#000000;
-    font-size:large;
+    background-color: #000000;
+    font-size: large;
 }
-
-div, header, main, footer, aside {
+div,
+header,
+main,
+footer,
+aside {
     padding: 10px;
     margin: 0px;
 }
-
 div.container {
     width: 768px;
     margin: 0px auto;
     padding: 0px;
-    border:1px dotted black;
-    background-color:#494D4B;
-    color:#dddddd;
+    border: 1px dotted black;
+    background-color: #494D4B;
+    color: #dddddd;
 }
-aside {
-    width: 214px;
-    float: right;
-}
-
 main {
-    margin-left:2em;
-    padding-left:0;
-    padding-right:1em;
+    margin-left: 2em;
+    padding-left: 0;
+    padding-right: 1em;
     width: 95%;
 }
-
 footer {
     clear: both;
     text-align: center;
 }
-
 p {
     text-align: justify;
 }
-header{
-    padding:.2em;
-    height:9em;
+header {
+    padding: .2em;
+    height: 9em;
     background-image: url('images/pr_banner.jpg');
 }
 header h1 {
     font-size: xx-large;
     line-height: 46px;
     font-weight: bold;
-    padding-top:.3em;
+    padding-top: .3em;
     margin-bottom: 0px;
-    text-align:center;
-    color:#ffffff;
+    text-align: center;
+    color: #ffffff;
 }
-
 header img {
     float: left;
     padding-right: .3em;
-    padding-top:-.1em;
+    padding-top: -.1em;
 }
-a{
-    color:#dddddd;
-    text-decoration:none;
+a {
+    color: #dddddd;
+    text-decoration: none;
 }
-a:hover{
-    color:#aaaaaa;
+a:hover {
+    color: #aaaaaa;
     font-weight: 600;
 }
+h1,
+h2,
+h3,
+h4 {
+    margin-top: 0;
 
-h1, h2, h3, h4 {
-    margin-top: 0px;
 }
 
-aside span.expand {
-    display: none;
+/*Strip the ul of padding and list styling*/
+ul {
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    position: absolute;
 }
 
-nav {
-    width: 100%;
-    height: 40px;
-    font-size: smaller;
-    font-family: Tahoma, Geneva, sans-serif;
-    font-weight: bold;
+/*Create a horizontal list with spacing*/
+li {
+    display:inline-block;
+    float: left;
+    margin-right: 1px;
+}
+/*Style for menu links*/
+li a {
+    display:block;
+    min-width:140px;
+    height: 50px;
     text-align: center;
-    text-shadow: 3px 2px 3px #333333;
-    background-color: #342535;
-    border-radius: 8px;
+    line-height: 50px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #fff;
+    background: #2f3036;
+    text-decoration: none;
 }
-nav ul {
-    height: auto;
-    padding:8px 0;
-    margin: 0;
+
+/*Hover state for top level links*/
+li:hover a {
+    background: #19c589;
 }
-nav li {
-display: inline;
-padding-top:10px;
-padding-bottom:10px;
-padding-left: 5px;
-padding-right:5px;
+
+/*Style for dropdown links*/
+li:hover ul a {
+    background: #f3f3f3;
+    color: #2f3036;
+    height: 40px;
+    line-height: 40px;
 }
-nav a:hover {
-    color: #ffffff;
+
+/*Hover state for dropdown links*/
+li:hover ul a:hover {
+    background: #19c589;
+    color: #fff;
 }
 @media (max-width: 768px) {
-    
-header{
-    height:5em;
-}
-
-main img{
-    width:100%;
-}
-    div.container, header, main, aside, footer {
+    header {
+        height: 5em;
+    }
+    main img {
+        width: 100%;
+    }
+    div.container,
+    header,
+    main,
+    aside,
+    footer {
         width: auto;
         margin: 0;
     }
-
-    aside {
-        float: none;
-    }
-
-    aside nav {
-        display: none;
-    }
-
-   aside span.expand {
-        display: inline-block;
-        float:right;
-        font-weight: normal;
-        font-size: 200%;
-        margin-top: -.3em;
-    }
-
-    aside h2 {
-        margin: 0px;
-    }
-
     header h1 {
         font-size: xx-large;
         line-height: 28px;
     }
-
     header img {
         height: 48px;
     }
-    
-    main h1,h2,h3,h4,h5{
-        text-align:center;
-        font-size:xx-large;
+    main h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        text-align: center;
+        font-size: xx-large;
+    }
+
+    /*Responsive Styles*/
+
+    @media screen and (max-width : 760px){
+        /*Create vertical spacing*/
+        li {
+            margin-bottom: 1px;
+        }
+        /*Make all menu links full width*/
+        ul li, li a {
+            width: 100%;
+        }
     }
 }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Kontakt - .NET World</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu+Mono"/>
+    <script src="jquery-1.11.3.js"></script>
+    <script src="main.js"></script>
+    <script src="script.js"></script>
+    <!--[if lt IE 9]>
+    <script src="html5shiv.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>C# World!</h1>
+    </header>
+    <nav>
+        <label for="show-menu" class="show-menu">Show Menu</label>
+        <input type="checkbox" id="show-menu" role="button">
+        <ul id="menu">
+            <li><a href="index.html">Wstęp</a></li>
+            <li><a href="tut.html">Podstawy C#</a></li>
+            <li><a href="http://pgjunior.net.pl">Junior .NET</a></li>
+            <li><a href="contact.html">Kontakt</a></li>
+        </ul>
+    </nav>
+    <main>
+
+        <script>
+            $(function() {
+                var availableTags = [
+                    "Rozpoczęcie Kursu",
+                        "Poziom Zaawansowania",
+                        "Wymagania",
+                        "Cena"
+
+                ];
+                $( "#subject" ).autocomplete({
+                    source: availableTags
+                });
+            });
+        </script>
+        <div class="contact-form">
+<form>
+
+    <label for="subject">Temat</label><input id="subject" type="text"/><br/>
+    <label>Your email:<input type="email">
+    </label>
+</form>
+        </div>
+<noscript>(walidacja przy braku JS wykonywana jest po stronie serwera na 2 projekcie :) )</noscript>
+
+
+    </main>
+    <footer>
+
+    </footer>
+</div>
+
+</body>
+</html>

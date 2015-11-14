@@ -1,7 +1,7 @@
 body {
     padding: 0;
     margin: 0;
-    font-family: Ubuntu Mono;
+    font-family: "Ubuntu Mono";
     background-color: #000000;
     font-size: large;
 }
@@ -11,17 +11,18 @@ main,
 footer,
 aside {
     padding: 10px;
-    margin: 0px;
+    margin: 0;
 }
 div.container {
     width: 768px;
-    margin: 0px auto;
-    padding: 0px;
+    margin: 0 auto;
+    padding: 0;
     border: 1px dotted black;
     background-color: #494D4B;
     color: #dddddd;
 }
 main {
+    margin-top:3em;
     margin-left: 2em;
     padding-left: 0;
     padding-right: 1em;
@@ -37,28 +38,24 @@ p {
 header {
     padding: .2em;
     height: 9em;
-    background-image: url('images/pr_banner.jpg');
+    background-image: url('images/banner_x2.jpg');
+    background-size: 100%;
 }
 header h1 {
     font-size: xx-large;
     line-height: 46px;
     font-weight: bold;
-    padding-top: .3em;
-    margin-bottom: 0px;
+    padding-top: 2em;
+    margin-bottom: 0;
     text-align: center;
     color: #ffffff;
-}
-header img {
-    float: left;
-    padding-right: .3em;
-    padding-top: -.1em;
 }
 a {
     color: #dddddd;
     text-decoration: none;
 }
 a:hover {
-    color: #aaaaaa;
+    color: #ffffff;
     font-weight: 600;
 }
 h1,
@@ -66,54 +63,13 @@ h2,
 h3,
 h4 {
     margin-top: 0;
-
+}
+.img-center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto
 }
 
-/*Strip the ul of padding and list styling*/
-ul {
-    list-style-type:none;
-    margin:0;
-    padding:0;
-    position: absolute;
-}
-
-/*Create a horizontal list with spacing*/
-li {
-    display:inline-block;
-    float: left;
-    margin-right: 1px;
-}
-/*Style for menu links*/
-li a {
-    display:block;
-    min-width:140px;
-    height: 50px;
-    text-align: center;
-    line-height: 50px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #fff;
-    background: #2f3036;
-    text-decoration: none;
-}
-
-/*Hover state for top level links*/
-li:hover a {
-    background: #19c589;
-}
-
-/*Style for dropdown links*/
-li:hover ul a {
-    background: #f3f3f3;
-    color: #2f3036;
-    height: 40px;
-    line-height: 40px;
-}
-
-/*Hover state for dropdown links*/
-li:hover ul a:hover {
-    background: #19c589;
-    color: #fff;
-}
 @media (max-width: 768px) {
     header {
         height: 5em;
@@ -145,16 +101,97 @@ li:hover ul a:hover {
         font-size: xx-large;
     }
 
-    /*Responsive Styles*/
+}
 
-    @media screen and (max-width : 760px){
-        /*Create vertical spacing*/
-        li {
-            margin-bottom: 1px;
-        }
-        /*Make all menu links full width*/
-        ul li, li a {
-            width: 100%;
-        }
+nav{
+    height:2.8em;
+    width:100%;
+    background-color: #2F3036;
+}
+/*Strip the ul of padding and list styling*/
+nav ul {
+    list-style-type:none;
+    margin:auto;
+    padding:0;
+    width: 90%;
+}
+
+/*Create a horizontal list with spacing*/
+nav li {
+    display:inline-block;
+    float: left;
+    margin-right: 1px;
+}
+
+/*Style for menu links*/
+nav li a {
+    display:block;
+    min-width:140px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #fff;
+    background: #2f3036;
+    text-decoration: none;
+}
+
+nav li:hover a {
+    background: #19c589;
+}
+
+.show-menu {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    color: #fff;
+    background: #19c589;
+    text-align: center;
+    padding: 10px 0;
+    display: none;
+}
+
+nav input[type=checkbox]{
+    display: none;
+}
+
+nav input[type=checkbox]:checked ~ #menu{
+    display: block;
+}
+.contact-form{
+    width:60%;
+    margin:auto;
+    padding:auto;
+    display:block;
+}
+.contact-form input{
+    width:100%;
+}
+@media screen and (max-width : 760px){
+    header h1{
+        padding-top:.8em;
+    }
+    nav ul {
+        position: static;
+        display: none;
+    }
+    nav li {
+        margin-bottom: 1px;
+    }
+    nav ul li, li a {
+        width: 100%;
+    }
+    .show-menu {
+        display:block;
+    }
+    main{
+        padding: 0 .5em .5em;
+    }
+
+    .contact-form{
+        width:100%;
+    }
+    .contact-form input{
+        width:90%;
+        height:2em;
     }
 }

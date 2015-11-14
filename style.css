@@ -166,6 +166,9 @@ nav input[type=checkbox]:checked ~ #menu{
 .contact-form input{
     width:100%;
 }
+.news-table td,.news-table tr{
+    font-size:small;
+}
 @media screen and (max-width : 760px){
     header h1{
         padding-top:.8em;

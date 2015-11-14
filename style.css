@@ -1,0 +1,152 @@
+body {
+    padding: 0px;
+    margin: 0px;
+    font-family: Ubuntu Mono;
+    background-color:#000000;
+    font-size:large;
+}
+
+div, header, main, footer, aside {
+    padding: 10px;
+    margin: 0px;
+}
+
+div.container {
+    width: 768px;
+    margin: 0px auto;
+    padding: 0px;
+    border:1px dotted black;
+    background-color:#494D4B;
+    color:#dddddd;
+}
+aside {
+    width: 214px;
+    float: right;
+}
+
+main {
+    margin-left:2em;
+    padding-left:0;
+    padding-right:1em;
+    width: 95%;
+}
+
+footer {
+    clear: both;
+    text-align: center;
+}
+
+p {
+    text-align: justify;
+}
+header{
+    padding:.2em;
+    height:9em;
+    background-image: url('images/pr_banner.jpg');
+}
+header h1 {
+    font-size: xx-large;
+    line-height: 46px;
+    font-weight: bold;
+    padding-top:.3em;
+    margin-bottom: 0px;
+    text-align:center;
+    color:#ffffff;
+}
+
+header img {
+    float: left;
+    padding-right: .3em;
+    padding-top:-.1em;
+}
+a{
+    color:#dddddd;
+    text-decoration:none;
+}
+a:hover{
+    color:#aaaaaa;
+    font-weight: 600;
+}
+
+h1, h2, h3, h4 {
+    margin-top: 0px;
+}
+
+aside span.expand {
+    display: none;
+}
+
+nav {
+    width: 100%;
+    height: 40px;
+    font-size: smaller;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 3px 2px 3px #333333;
+    background-color: #342535;
+    border-radius: 8px;
+}
+nav ul {
+    height: auto;
+    padding:8px 0;
+    margin: 0;
+}
+nav li {
+display: inline;
+padding-top:10px;
+padding-bottom:10px;
+padding-left: 5px;
+padding-right:5px;
+}
+nav a:hover {
+    color: #ffffff;
+}
+@media (max-width: 768px) {
+    
+header{
+    height:5em;
+}
+
+main img{
+    width:100%;
+}
+    div.container, header, main, aside, footer {
+        width: auto;
+        margin: 0;
+    }
+
+    aside {
+        float: none;
+    }
+
+    aside nav {
+        display: none;
+    }
+
+   aside span.expand {
+        display: inline-block;
+        float:right;
+        font-weight: normal;
+        font-size: 200%;
+        margin-top: -.3em;
+    }
+
+    aside h2 {
+        margin: 0px;
+    }
+
+    header h1 {
+        font-size: xx-large;
+        line-height: 28px;
+    }
+
+    header img {
+        height: 48px;
+    }
+    
+    main h1,h2,h3,h4,h5{
+        text-align:center;
+        font-size:xx-large;
+    }
+}

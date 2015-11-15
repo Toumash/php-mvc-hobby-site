@@ -1,37 +1,44 @@
 [
   {
-    "title": "Podstawy C#- Wprowadzenie",
-    "speaker": "Tomasz Dłuski",
-    "room": "239",
-    "date": "4.11.2015 17:15",
+    "title": "C#-Wstęp",
+    "speaker": "Tomasz",
+    "room": "NE239",
+    "date": "4.11 17:15",
     "description": "Na tych zajęciach dowiecie się jak stworzyć swój własny prosty program. Mało tego - zrobimy to!"
   },
   {
-    "title": "Podstawy C#- Wprowadzenie",
-    "speaker": "Tomasz Dłuski",
-    "room": "239",
-    "date": "4.11.2015 17:15",
+    "title": "C#-Wstęp",
+    "speaker": "Mariusz",
+    "room": "NE237",
+    "date": "9.11 18:15",
     "description": "Na tych zajęciach dowiecie się jak stworzyć swój własny prosty program. Mało tego - zrobimy to!"
   },
   {
-    "title": "Podstawy C#- Wprowadzenie",
-    "speaker": "Tomasz Dłuski",
-    "room": "239",
-    "date": "4.11.2015 17:15",
-    "description": "Na tych zajęciach dowiecie się jak stworzyć swój własny prosty program. Mało tego - zrobimy to!"
+    "title": "C#-Pętle",
+    "speaker": "Tomasz",
+    "room": "NE238",
+    "date": "16.11 17:15",
+    "description": "Trójkąty wszędzie - będziemy rysować wzorki w konsoli."
   },
   {
-    "title": "Podstawy C#- Wprowadzenie",
-    "speaker": "Tomasz Dłuski",
-    "room": "239",
-    "date": "4.11.2015 17:15",
-    "description": "Na tych zajęciach dowiecie się jak stworzyć swój własny prosty program. Mało tego - zrobimy to!"
+    "title": "C#-Pętle",
+    "speaker": "Mariusz",
+    "room": "NE237",
+    "date": "18.11 18:15",
+    "description": "Trójkąty wszędzie - będziemy rysować wzorki w konsoli."
   },
   {
-    "title": "Podstawy C#- Wprowadzenie",
-    "speaker": "Tomasz Dłuski",
-    "room": "239",
-    "date": "4.11.2015 17:15",
-    "description": "Na tych zajęciach dowiecie się jak stworzyć swój własny prosty program. Mało tego - zrobimy to!"
+    "title": "C#-Tablice",
+    "speaker": "Tomasz",
+    "room": "NE238",
+    "date": "23.11 17:15",
+    "description": "Macierze oraz przechowywanie większych danych w pamięci"
+  },
+  {
+    "title": "C#-Tablice",
+    "speaker": "Mariusz",
+    "room": "NE237",
+    "date": "25.11 18:15",
+    "description": "Macierze oraz przechowywanie większych danych w pamięci"
   }
 ]

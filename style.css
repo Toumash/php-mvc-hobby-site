@@ -5,6 +5,7 @@ body {
     background-color: #000000;
     font-size: large;
 }
+
 div,
 header,
 main,
@@ -13,6 +14,7 @@ aside {
     padding: 10px;
     margin: 0;
 }
+
 div.container {
     width: 768px;
     margin: 0 auto;
@@ -21,26 +23,34 @@ div.container {
     background-color: #494D4B;
     color: #dddddd;
 }
+
 main {
-    margin-top:3em;
-    margin-left: 2em;
-    padding-left: 0;
+    padding-left: .5em;
     padding-right: 1em;
     width: 95%;
 }
+
+nav {
+    margin-bottom: 2em;
+}
+
 footer {
     clear: both;
     text-align: center;
+    font-size: small;
 }
+
 p {
     text-align: justify;
 }
+
 header {
     padding: .2em;
     height: 9em;
     background-image: url('images/banner_x2.jpg');
     background-size: 100%;
 }
+
 header h1 {
     font-size: xx-large;
     line-height: 46px;
@@ -50,83 +60,58 @@ header h1 {
     text-align: center;
     color: #ffffff;
 }
+
 a {
     color: #dddddd;
     text-decoration: none;
 }
+
 a:hover {
     color: #ffffff;
     font-weight: 600;
 }
+
 h1,
 h2,
 h3,
 h4 {
     margin-top: 0;
 }
-.img-center{
+
+.img-center {
     display: block;
     margin-left: auto;
     margin-right: auto
 }
 
-@media (max-width: 768px) {
-    header {
-        height: 5em;
-    }
-    main img {
-        width: 100%;
-    }
-    div.container,
-    header,
-    main,
-    aside,
-    footer {
-        width: auto;
-        margin: 0;
-    }
-    header h1 {
-        font-size: xx-large;
-        line-height: 28px;
-    }
-    header img {
-        height: 48px;
-    }
-    main h1,
-    h2,
-    h3,
-    h4,
-    h5 {
-        text-align: center;
-        font-size: xx-large;
-    }
-
-}
-
-nav{
-    height:2.8em;
-    width:100%;
+nav {
+    height: 2.8em;
+    width: 100%;
     background-color: #2F3036;
 }
+
 /*Strip the ul of padding and list styling*/
+
 nav ul {
-    list-style-type:none;
-    margin:auto;
-    padding:0;
+    list-style-type: none;
+    margin: auto;
+    padding: 0;
     width: 90%;
 }
 
 /*Create a horizontal list with spacing*/
+
 nav li {
-    display:inline-block;
+    display: inline-block;
     float: left;
     margin-right: 1px;
 }
 
 /*Style for menu links*/
+
 nav li a {
-    display:block;
-    min-width:140px;
+    display: block;
+    min-width: 140px;
     height: 50px;
     text-align: center;
     line-height: 50px;
@@ -150,51 +135,120 @@ nav li:hover a {
     display: none;
 }
 
-nav input[type=checkbox]{
+nav input[type=checkbox] {
     display: none;
 }
 
-nav input[type=checkbox]:checked ~ #menu{
+nav input[type=checkbox]:checked ~ #menu {
     display: block;
 }
-.contact-form{
-    width:60%;
-    margin:auto;
-    padding:auto;
-    display:block;
+
+.contact-form {
+    width: 60%;
+    margin: auto;
+    display: block;
 }
-.contact-form input{
-    width:100%;
+
+.contact-form input,
+textarea {
+    width: 100%;
 }
-.news-table td,.news-table tr{
-    font-size:small;
+
+.news-table {
+    padding: 1em;
+    font-size: small;
 }
-@media screen and (max-width : 760px){
-    header h1{
-        padding-top:.8em;
+
+.news-table tr:nth-child(odd) {
+    background-color: #2f3036;
+}
+
+.news-table td {
+    padding: 1em;
+}
+
+#copyright {
+    color: #b7ff9f !important;
+    float: right;
+    font-size: small;
+}
+
+@media screen and (max-width: 760px) {
+    header h1 {
+        padding-top: .8em;
     }
+
     nav ul {
         position: static;
         display: none;
     }
+
     nav li {
         margin-bottom: 1px;
     }
-    nav ul li, li a {
+
+    nav ul li,
+    li a {
         width: 100%;
     }
+
     .show-menu {
-        display:block;
+        display: block;
     }
-    main{
+
+    main {
         padding: 0 .5em .5em;
     }
 
-    .contact-form{
-        width:100%;
+    .contact-form {
+        width: 100%;
     }
-    .contact-form input{
-        width:90%;
-        height:2em;
+
+    .contact-form input {
+        width: 90%;
+        height: 2em;
+    }
+
+    .news-table {
+        width: 100%;
+    }
+
+    .news-table td {
+        padding: 1em 0;
+    }
+
+    header {
+        height: 5em;
+    }
+
+    main img {
+        width: 100%;
+    }
+
+    div.container,
+    header,
+    main,
+    aside,
+    footer {
+        width: auto;
+        margin: 0;
+    }
+
+    header h1 {
+        font-size: xx-large;
+        line-height: 28px;
+    }
+
+    header img {
+        height: 48px;
+    }
+
+    main h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        text-align: center;
+        font-size: xx-large;
     }
 }

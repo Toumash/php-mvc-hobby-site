@@ -1,7 +1,8 @@
-function showNews(data) {
-    var table = $('#main');
+function showNews(json) {
+    var table = $('main');
     var content = ["<h3>Informacje o spotkaniach</h3>"];
     content.push("<table class='news-table'><tr><th>Tytul</th><th>Speaker</th><th>Data</th><th>Opis</th></tr>");
+    var data = json.meetings;
     for (var i = 0; i < data.length; i++) {
         var description = data[i].description;
         if (data[i].description.length > 60) {
@@ -16,10 +17,20 @@ function showNews(data) {
     table.innerHTML = content.join("");
 }
 
-function showNews() {
-    $.getJSON('meetings.json').done(showNews).fail(function () {
-        alert('Coś poszło nie tak :C');
+function getNews() {
+    $.ajax({
+        url: "meetings.json",
+        dataType: 'json',
+        success: showNews,
+        fail: function () {
+            alert('Cos poszlo nie tak :C');
+        }
     });
+
+
+    /*  $.getJSON('meetings.json').done(showNews).fail(function () {
+     alert('Coś poszło nie tak :C');
+     });*/
 }
 function addNewsButton() {
     var menu = document.getElementById('menu');
@@ -29,35 +40,35 @@ function addNewsButton() {
     newButton.appendChild(document.createTextNode('Spotkania'));
     newItem.appendChild(newButton);
     menu.appendChild(newItem);
-    newButton.onclick = showNews;
+    newButton.onclick = getNews;
 }
 
-function showDialog(title,content,isModal){
+function showDialog(title, content, isModal) {
     $('main').append("<div id='dialog' title='" + title + "'>" + content + "</div>");
-    $('#dialog').dialog({modal:isModal});
+    $('#dialog').dialog({modal: isModal});
 }
 function form_validate() {
     var form = $('#contact-form');
-    var subject = $('#subject',form).val();
+    var subject = $('#subject', form).val();
     var email = $('#email', form).val();
-    var content = $('#content',form).val();
+    var content = $('#content', form).val();
 
     var emailReg = /^([\w\.]+@([\w]+\.)+[\w]{2,4})?$/;
 
-    if(subject.length < 10){
-        showDialog("Błąd","Podany tytuł jest zbyt krótki",true);
+    if (subject.length < 10) {
+        showDialog("Błąd", "Podany tytuł jest zbyt krótki", true);
         return false;
     }
-    if (!emailReg.test(email)) {
-        showDialog("Błąd","podany adres email jest nieprawidłowy",true);
+    if (!emailReg.test(email) || email == "") {
+        showDialog("Błąd", "podany adres email jest nieprawidłowy", true);
         return false;
     }
-    if(content.length < 10){
-        showDialog("Błąd","Tresć wiadomości jest zbyt krótka",true);
+    if (content.length < 10) {
+        showDialog("Błąd", "Tresć wiadomości jest zbyt krótka", true);
         return false;
     }
 
-    showDialog("Ok","Wiadomość została przekazana. (Nie, brak serwera to brak wiadomosci : ) )");
+    showDialog("Ok", "Wiadomość została przekazana. (Nie, brak serwera to brak wiadomosci : ) )");
     // aby nie zamykac dialogu : )
     return false;
 }

@@ -209,6 +209,10 @@ textarea {
         height: 2em;
     }
 
+    .contact-form textarea{
+        width:90%;
+    }
+
     .news-table {
         width: 100%;
     }

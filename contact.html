@@ -8,16 +8,15 @@
     <title>Kontakt - .NET World</title>
 
     <link href="style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.min.css"/>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu+Mono"/>
-    <!--[if lt IE 9]>
-    <script src="html5shiv.min.js"></script>
-    <![endif]-->
-    <script src="jquery-1.11.3.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script src="script.js"></script>
 
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="script/html5shiv.min.js"></script>
+    <![endif]-->
+    <script src="script/jquery-1.11.3.min.js"></script>
+    <script src="script/jquery-ui.min.js"></script>
+    <script src="script/main.js"></script>
 </head>
 <body>
 
@@ -26,7 +25,7 @@
         <h1>C# World!</h1>
     </header>
     <nav>
-        <label for="show-menu" class="show-menu">Show Menu</label>
+        <label for="show-menu" class="show-menu">Pokaż Menu</label>
         <input type="checkbox" id="show-menu" role="button"/>
         <ul id="menu">
             <li><a href="index.html">Wstęp</a></li>
@@ -48,7 +47,7 @@
                 <label for="subject">Temat</label><input id="subject" name="subject" type="text" required
                                                          placeholder="Temat"/><br/>
                 <label>Email:<input id="email" type="email" name="email" required placeholder="someone@example.com"/>
-                </label>
+                </label><br/>
                 <label>Treść:<br>
                     <textarea id="content" name="content" required placeholder="W czym możemy pomóc? : )"></textarea>
                 </label>

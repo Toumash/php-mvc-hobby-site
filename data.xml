@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+
+<grupa xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.w3schools.com data.xsd">
+  <nazwa>Junior .NET PG</nazwa>
+  <logo>http://pgjunior.net.pl/images/oNas/1185537_646963678684766_806382569_n.png</logo>
+  <strona-internetowa>http://pgjunior.net.pl</strona-internetowa>
+  <opis>Grupa pasjonatów programowania zarówno studentów jak i uczniów szkół średnich</opis>
+  <uczelnia>
+    <nazwa>Politechnika Gdańska</nazwa>
+    <lokalizacja>
+      <adres>Ul. Do studzienki 9</adres>
+      <kod-pocztowy>80-333</kod-pocztowy>
+    </lokalizacja>
+  </uczelnia>
+  <wydzial>
+    <skrot>ETI</skrot>
+    <pelna-nazwa>Eleketroniki Telekomunikacji i Informatyki</pelna-nazwa>
+  </wydzial>
+
+  <spotkania>
+    <spotkanie id="0" odyblo-sie="true">
+      <temat>C# - algorytmy</temat>
+      <data>
+        <dzien>2015-12-02</dzien>
+        <godzina>18</godzina>
+      </data>
+      <prelegenci>1 0</prelegenci>
+      <opis>Proste algorytmy, projekt na święta</opis>
+      <miejsce>NE-238</miejsce>
+    </spotkanie>
+    <spotkanie id="1" odyblo-sie="true">
+      <temat>C# - ostatnie spotkanie roku</temat>
+      <data>
+        <dzien>2015-12-16</dzien>
+        <godzina>18</godzina>
+      </data>
+      <prelegenci>1 0</prelegenci>
+      <opis>Krotka powtorka calego roku na streamie YT</opis>
+      <miejsce>https://www.youtube.com/watch?v=l90g-O6GOME</miejsce>
+    </spotkanie>
+    <spotkanie id="2" odyblo-sie="true">
+      <temat>C# - ostatnie spotkanie roku</temat>
+      <data>
+        <dzien>2015-12-14</dzien>
+        <godzina>18</godzina>
+      </data>
+      <prelegenci>1 0</prelegenci>
+      <opis>Krotka powtorka calego roku na streamie YT</opis>
+      <miejsce>https://www.youtube.com/watch?v=l90g-O6GOME</miejsce>
+    </spotkanie>
+    <spotkanie id="3" odyblo-sie="true">
+      <temat>C# - Kapsulkowanie w praktyce</temat>
+      <data>
+        <dzien>2015-12-11</dzien>
+        <godzina>18</godzina>
+      </data>
+      <prelegenci>0</prelegenci>
+      <opis>Powtorzymy sobie czym jest kapsulkowanie, i przedstawimy wam realne zalety z niego playnace</opis>
+      <miejsce>NE-238</miejsce>
+    </spotkanie>
+    <spotkanie id="3" odyblo-sie="true">
+      <temat>Podstawy Gita</temat>
+      <data>
+        <dzien>2015-11-25</dzien>
+        <godzina>18</godzina>
+      </data>
+      <prelegenci>0</prelegenci>
+      <opis>Zasady dzialania najpopularniejszego systemu kontroli werjsi w praktyce</opis>
+      <miejsce>https://www.youtube.com/watch?v=w6zf6cfDb3c</miejsce>
+    </spotkanie>
+    <spotkanie id="4" odyblo-sie="true">
+      <temat>Podstawy Gita</temat>
+      <data>
+        <dzien>2015-11-17</dzien>
+        <godzina>18</godzina>
+      </data>
+      <prelegenci>0</prelegenci>
+      <opis>Zasady dzialania najpopularniejszego systemu kontroli werjsi w praktyce</opis>
+      <miejsce>https://www.youtube.com/watch?v=w6zf6cfDb3c</miejsce>
+    </spotkanie>
+    <spotkanie id="5" odyblo-sie="true">
+      <temat>Wstep do Chmury Azure</temat>
+      <data>
+        <dzien>2015-11-23</dzien>
+        <godzina>18</godzina>
+      </data>
+      <prelegenci>0</prelegenci>
+      <opis>Zasady dzialania najpopularniejszego systemu kontroli werjsi w praktyce</opis>
+      <miejsce>http://pgjunior.net.pl/spotkania/19-azure-wstep</miejsce>
+    </spotkanie>
+  </spotkania>
+
+  <prelegenci>
+    <prelegent id="0">
+      <imie>Tomasz</imie>
+      <nazwisko>Dłuski</nazwisko>
+      <email>tomasz.dluski@juniornet.onmicrosoft.com</email>
+      <zdjecie>http://pgjunior.net.pl/images/oNas/1185537_646963678684766_806382569_n.png</zdjecie>
+      <zdjecie>http://pgjunior.net.pl/images/main/groupx.png</zdjecie>
+    </prelegent>
+    <prelegent id="1">
+      <imie>Mariusz</imie>
+      <nazwisko>Kowalski</nazwisko>
+      <email>mariusz.k@gmail.com</email>
+      <zdjecie>http://pgjunior.net.pl/images/oNas/1185537_646963678684766_806382569_n.png</zdjecie>
+      <zdjecie>http://pgjunior.net.pl/images/main/groupx.png</zdjecie>
+    </prelegent>
+  </prelegenci>
+</grupa>

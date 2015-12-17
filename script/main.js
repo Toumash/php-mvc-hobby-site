@@ -27,10 +27,6 @@ function getNews() {
         }
     });
 
-
-    /*  $.getJSON('meetings.json').done(showNews).fail(function () {
-     alert('Coś poszło nie tak :C');
-     });*/
 }
 function addNewsButton() {
     var menu = document.getElementById('menu');
@@ -69,7 +65,6 @@ function form_validate() {
     }
 
     showDialog("Ok", "Wiadomość została przekazana. (Nie, brak serwera to brak wiadomosci : ) )");
-    // aby nie zamykac dialogu : )
     return false;
 }
 function timerTick() {

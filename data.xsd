@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<x:schema xmlns:x="http://www.w3.org/2001/XMLSchema">
+  <x:annotation>
+    <x:documentation xml:lang="pl">
+      Schemat opisujacy system spotkana grupy hobbystycznej Junior .NET PG
+    </x:documentation>
+  </x:annotation>
+
+  <x:element name="grupa" type="grupa">
+  </x:element>
+
+  <x:complexType name="grupa">
+    <x:sequence>
+      <x:element name="nazwa" type="nazwa-grupy" />
+      <x:element name="logo" type="link"/>
+      <x:element name="strona-internetowa" type="link"/>
+      <x:element name="opis" type="opis" />
+      <x:element name="uczelnia" type="uczelnia" />
+      <x:element name="wydzial" type="wydzial" />
+      <x:element name="spotkania">
+        <x:complexType>
+          <x:sequence>
+            <x:element maxOccurs="10" minOccurs="1" name="spotkanie" type="spotkanie"/>
+          </x:sequence>
+        </x:complexType>
+      </x:element>
+      <x:element name="prelegenci">
+        <x:complexType>
+          <x:sequence >
+            <x:element maxOccurs="10" minOccurs="1" name="prelegent" type="prelegent"/>
+          </x:sequence>
+        </x:complexType>
+      </x:element>
+    </x:sequence>
+  </x:complexType>
+  <x:complexType name="uczelnia" mixed="true">
+    <x:sequence>
+      <x:element name="nazwa" type="nazwa"/>
+      <x:element name="lokalizacja">
+        <x:complexType>
+          <x:sequence>
+            <x:element name="adres" type="x:string"/>
+            <x:element name="kod-pocztowy">
+              <x:simpleType>
+                <x:restriction base="x:string">
+                  <x:pattern value="[0-9]{2}-[0-9]{3}"/>
+                </x:restriction>
+              </x:simpleType>
+            </x:element>
+          </x:sequence>
+        </x:complexType>
+      </x:element>
+    </x:sequence>
+  </x:complexType>
+
+  <x:complexType name="wydzial">
+    <x:sequence>
+      <x:element name="skrot" >
+        <x:simpleType>
+          <x:restriction base="x:string">
+            <x:pattern value="[a-zA-Z]{2,}"/>
+          </x:restriction>
+        </x:simpleType>
+      </x:element>
+      <x:element name="pelna-nazwa" type="nazwa"/>
+    </x:sequence>
+  </x:complexType>
+  <x:complexType name="prelegent">
+    <x:sequence>
+      <x:element name="imie" type="x:string" />
+      <x:element name="nazwisko" type="x:string" />
+      <x:element name="email" type="email" />
+      <x:element name="zdjecie" type="link" minOccurs="1" maxOccurs="2"/>
+    </x:sequence>
+    <x:attribute name="id" type="prelegent-id" use="required" />
+  </x:complexType>
+
+  <x:simpleType name="nazwa">
+    <x:restriction base="x:string">
+      <x:minLength value="5"/>
+    </x:restriction>
+  </x:simpleType>
+  <x:complexType name="spotkanie">
+    <x:group ref="spotkanie-elements"/>
+    <x:attribute ref="id"/>
+    <x:attribute name="odyblo-sie" type="x:boolean" use="required" />
+  </x:complexType>
+
+  <x:group name="spotkanie-elements">
+    <x:sequence>
+      <x:element name="temat" type="x:string" />
+      <x:element name="data" type="data" />
+      <x:element name="prelegenci" type="lista-prelegentow" />
+      <x:element name="opis" type="opis" />
+      <x:element name="miejsce" type="miejsce" />
+    </x:sequence>
+  </x:group>
+  <x:attribute name="id" type="x:integer"/>
+
+  <x:simpleType name="lista-prelegentow">
+    <x:list itemType="prelegent-id"/>
+  </x:simpleType>
+
+  <x:simpleType name="opis">
+    <x:restriction base="x:string">
+      <x:minLength value="6"/>
+    </x:restriction>
+  </x:simpleType>
+  <x:complexType name="data">
+    <x:all>
+      <x:element name="dzien" type="x:date"/>
+      <x:element name="godzina" type="godzina"/>
+    </x:all>
+  </x:complexType>
+  <x:simpleType name="godzina">
+    <x:restriction base="x:integer">
+      <x:minInclusive value="10"/>
+      <x:maxExclusive value="22"/>
+    </x:restriction>
+  </x:simpleType>
+
+  <x:simpleType name="prelegent-id">
+    <x:restriction base="x:integer">
+      <x:minInclusive value="0"/>
+    </x:restriction>
+  </x:simpleType>
+
+  <x:simpleType name="typ-spotkania">
+    <x:restriction base="x:string">
+      <x:enumeration value="stream"/>
+      <x:enumeration value="laborka"/>
+      <x:enumeration value="wyklad"/>
+    </x:restriction>
+  </x:simpleType>
+
+  <x:simpleType name="email">
+    <x:restriction base="x:string">
+      <x:pattern value="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"/>
+    </x:restriction>
+  </x:simpleType>
+
+  <x:simpleType name="link">
+    <x:restriction base="x:anyURI"/>
+  </x:simpleType>
+
+  <x:simpleType name="sala">
+    <x:restriction base="x:string">
+      <x:pattern value="[A-Z]{2}\-[0-9]{3}"/>
+    </x:restriction>
+  </x:simpleType>
+
+  <x:simpleType name="nazwa-grupy">
+    <x:restriction base="x:string">
+      <x:minLength value="4"/>
+    </x:restriction>
+  </x:simpleType>
+
+  <x:simpleType name="miejsce">
+    <x:union memberTypes="link sala"/>
+  </x:simpleType>
+</x:schema>

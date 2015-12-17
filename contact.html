@@ -44,11 +44,22 @@
         <div class="contact-form">
             <form id="contact-form" onSubmit="return form_validate();" novalidate>
 
-                <label for="subject">Temat</label><input id="subject" name="subject" type="text" required
+                <label for="subject">Tytuł</label><input id="subject" name="subject" type="text" required
                                                          placeholder="Temat"/><br/>
                 <label>Email:<input id="email" type="email" name="email" required placeholder="someone@example.com"/>
                 </label><br/>
-                <label>Treść:<br>
+				<label>Czego byś chciał się nauczyć:<input id="to-learn" type="text" name="toLearn" required placeholder="C#"/>
+                </label><br/>
+				Czy byłeś/aś już na spotkaniu, jeśli tak, to na którym?
+				<div id="contact-question">
+				<label><input id="cb-pon" checked="false" type="checkbox" name="poniedzialek"/>
+                Poniedziałek</label><br/>
+				<label><input id="cb-sroda" checked="false" type="checkbox" name="sroda"/>
+                Środa</label><br/>
+				</div>
+				<label>Ocena grupy:<input id="rank" type="number" min="1" max="5" name="rank" required placeholder="5"/>
+                </label><br/>
+                <label>Dodatkowe uwagi:<br>
                     <textarea id="content" name="content" required placeholder="W czym możemy pomóc? : )"></textarea>
                 </label>
                 <br>

@@ -90,8 +90,6 @@ nav {
     background-color: #2F3036;
 }
 
-/*Strip the ul of padding and list styling*/
-
 nav ul {
     list-style-type: none;
     margin: auto;
@@ -99,15 +97,12 @@ nav ul {
     width: 90%;
 }
 
-/*Create a horizontal list with spacing*/
-
 nav li {
     display: inline-block;
     float: left;
     margin-right: 1px;
 }
 
-/*Style for menu links*/
 
 nav li a {
     display: block;
@@ -145,7 +140,7 @@ nav input[type=checkbox]:checked ~ #menu {
 
 .contact-form {
     width: 60%;
-    margin: auto;
+    margin: auto;contact-question
     display: block;
 }
 
@@ -171,6 +166,15 @@ textarea {
     color: #b7ff9f !important;
     float: right;
     font-size: small;
+}
+
+#contact-question{
+	text-align:left;
+}
+
+#contact-question input{
+	text-align:left;
+	width:inherit;
 }
 
 @media screen and (max-width: 760px) {

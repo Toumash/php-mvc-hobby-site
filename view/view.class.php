@@ -25,12 +25,19 @@ abstract class View
         return $ob;
     }
 
-    public function render($name, $path = '\templates/')
+    public function render($name, $output = true, $path = '\templates/',$extension = '.html.php')
     {
-        $path = ROOT . $path . $name . '.html.php';
+        $path = ROOT . $path . $name . $extension;
         try {
             if (is_file($path)) {
+                if(!$output){
+                    ob_start();
+                }
                 require $path;
+                if(!$output){
+                    // returns buffered output
+                    return ob_get_clean();
+                }
             } else {
                 throw new Exception('Can not open template ' . $name . ' in: ' . $path);
             }

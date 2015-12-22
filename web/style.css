@@ -103,10 +103,9 @@ nav li {
     margin-right: 1px;
 }
 
-
 nav li a {
     display: block;
-    min-width: 140px;
+    min-width: 120px;
     height: 50px;
     text-align: center;
     line-height: 50px;
@@ -140,7 +139,7 @@ nav input[type=checkbox]:checked ~ #menu {
 
 .contact-form {
     width: 60%;
-    margin: auto;contact-question
+    margin: auto;
     display: block;
 }
 
@@ -168,13 +167,13 @@ textarea {
     font-size: small;
 }
 
-#contact-question{
-	text-align:left;
+#contact-question {
+    text-align: left;
 }
 
-#contact-question input{
-	text-align:left;
-	width:inherit;
+#contact-question input {
+    text-align: left;
+    width: inherit;
 }
 
 @media screen and (max-width: 760px) {
@@ -213,8 +212,8 @@ textarea {
         height: 2em;
     }
 
-    .contact-form textarea{
-        width:90%;
+    .contact-form textarea {
+        width: 90%;
     }
 
     .news-table {

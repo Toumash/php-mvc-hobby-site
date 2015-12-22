@@ -6,8 +6,24 @@ abstract class Controller
     {
         header("location: " . $url);
     }
-    public function redirectTo($controller,$action){
-        header("location: /?c=$controller&a=$action");
+
+    public function redirectTo($controller, $action, $params = null)
+    {
+        $paramsString = '';
+        if ($params != null) {
+            foreach ($params as $key => $value) {
+                $paramsString .= "&{$key}={$value}";
+            }
+        }
+        header("location: /?c=$controller&a=$action" . $paramsString);
+    }
+
+    /**
+     * @param $code integer
+     */
+    public function responseCode($code)
+    {
+        http_response_code($code);
     }
 
     public abstract function index();

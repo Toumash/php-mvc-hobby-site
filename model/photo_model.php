@@ -26,7 +26,7 @@ class photoModel extends databaseModel
         return array(new Photo('troll.png', 'toumash', 'Beautifull world ofr demacia'));
     }
 
-    public function add($name, $path, $user)
+    public function add($name, $path, $watermarkLocation, $thumbnailLocation, $user)
     {
         if ($user == null) {
             $user = new User(-1, 'anon', 'Niezalogowany');

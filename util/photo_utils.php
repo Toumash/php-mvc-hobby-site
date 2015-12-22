@@ -59,6 +59,10 @@ class PhotoUtils
     public static function createThumbnail($src, $dest, $newWidth, $newHeight)
     {
         $source_image = imagecreatefromjpeg($src);
+        if(!$source_image){
+            return false;
+        }
+
         $width = imagesx($source_image);
         $height = imagesy($source_image);
 
@@ -71,6 +75,7 @@ class PhotoUtils
 
         imagejpeg($img, $dest);
         imagedestroy($img);
+        return true;
     }
 
     public static function getMimeType($fileName){

@@ -2,7 +2,10 @@
 
 class Photo
 {
-    public $url;
+    public $originalUrl;
+    public $thumbnailUrl;
+    public $watermarkUrl;
+
 
     /**
      * @var User
@@ -11,9 +14,11 @@ class Photo
 
     public $title;
 
-    public function __construct($url, $user, $title)
+    public function __construct($url, $thumbnailUrl,$watermarkUrl,$user, $title)
     {
-        $this->url = $url;
+        $this->originalUrl = $url;
+        $this->thumbnailUrl = $thumbnailUrl;
+        $this->watermarkUrl = $watermarkUrl;
         $this->user = $user;
         $this->title = $title;
     }

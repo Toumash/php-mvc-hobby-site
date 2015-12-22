@@ -10,7 +10,7 @@
 $photos = $this->get('photos');
 if (!empty($photos)) {
     foreach ($photos as $photo) {
-        echo "<img src=\"{$photo->url}\" title=\"{$photo->title}\"/>";
+        echo "<a href=\"{$photo->watermarkUrl}\"><img src=\"{$photo->thumbnailUrl}\" title=\"{$photo->title}\"/></a>";
         echo "<span>{$photo->user->name}</span>";
         // TODO: better user experience
     }

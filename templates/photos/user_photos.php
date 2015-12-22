@@ -6,7 +6,7 @@
 $photos = $this->get('photos');
 if (!empty($photos)) {
     foreach ($photos as $photo) {
-        echo "<img src=\"{$photo->url}\" title=\"{$photo->title}\"/>";
+        echo "<img src=\"{$photo->originalUrl}\" title=\"{$photo->title}\"/>";
         echo "<span>{$photo->user->name}</span>";
         // TODO: better user experience
     }

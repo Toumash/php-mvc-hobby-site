@@ -4,7 +4,7 @@ class Dispatcher
 {
     public function Dispatch($controller, $action)
     {
-        $path = ROOT . '\controller\\' . $controller . '.class.php';
+        $path = ROOT . '\controller\\' . $controller . '_controller.php';
         $name = $controller . 'Controller';
         $ob = null;
         try {

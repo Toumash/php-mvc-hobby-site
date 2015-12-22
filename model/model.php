@@ -4,7 +4,7 @@ abstract class Model
 {
     public static function load($name, $path = '\model/')
     {
-        $path = ROOT . $path . $name . '.class.php';
+        $path = ROOT . $path . $name . '_model.php';
         $name = $name . 'Model';
         try {
             if (is_file($path)) {

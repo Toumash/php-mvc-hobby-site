@@ -9,7 +9,7 @@ class pageView extends View
         $this->menuItems = array(
             'Wstęp' => '?c=page&page=intro',
             'Podstawy C#' => '?c=page&page=tut',
-            'Galeria' => '?c=gallery',
+            'Galeria' => '?c=photo',
             'Kontakt' => '?c=page&page=contact'
         );
         $this->set('title', 'DefaultTitle');

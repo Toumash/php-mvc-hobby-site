@@ -3,9 +3,9 @@ define('ROOT', dirname(__DIR__));
 require ROOT . '\dispatcher.php';
 session_start();
 define('DEFAULT_CONTROLLER', 'page');
-require ROOT . '\controller\controller.class.php';
-require ROOT . '\model\model.class.php';
-require ROOT . '\view\view.class.php';
+require ROOT . '\controller\controller.php';
+require ROOT . '\model\model.php';
+require ROOT . '\view\view.php';
 
 
 $disp = new Dispatcher();
@@ -19,4 +19,3 @@ if (empty($action)) {
 }
 
 $disp->Dispatch($controller, $action); // dispatch controller and action associated
-echo '<h3 style="color:green;">Program run without any problems <strong>< OK > !</strong></h3>';

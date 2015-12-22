@@ -6,7 +6,7 @@ abstract class View
 
     public static function load($name, $path = '\view/')
     {
-        $path = ROOT . $path . $name . '.class.php';
+        $path = ROOT . $path . $name . '_view.php';
         $name = $name . 'View';
         try {
             if (is_file($path)) {
@@ -25,7 +25,7 @@ abstract class View
         return $ob;
     }
 
-    public function render($name, $output = true, $path = '\templates/',$extension = '.html.php')
+    public function render($name, $output = true, $path = '\templates/',$extension = '.php')
     {
         $path = ROOT . $path . $name . $extension;
         try {

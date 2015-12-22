@@ -13,15 +13,24 @@ class photoModel extends databaseModel
     public function getAllPublicPhotos()
     {
         // FIXME: data stub
-        return array(new Photo('troll.png','toumash','Beautifull world of demacia'));
+        return array(new Photo('troll.png', 'toumash', 'Beautifull world of demacia'));
     }
 
     /**
      * @param User $user
      * @return Photo[]
      */
-    public function getAllUserPhotos(User $user){
+    public function getAllUserPhotos(User $user)
+    {
         // FIXME: data stub
-        return array(new Photo('troll.png','toumash','Beautifull world of demacia'));
+        return array(new Photo('troll.png', 'toumash', 'Beautifull world ofr demacia'));
+    }
+
+    public function add($name, $path, $user)
+    {
+        if ($user == null) {
+            $user = new User(-1, 'anon', 'Niezalogowany');
+        }
+        // FIXME: actual database operation
     }
 }

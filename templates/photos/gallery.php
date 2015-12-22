@@ -1,5 +1,6 @@
 <form action="?c=photo&action=upload" method="post" enctype="multipart/form-data">
     <input type="file" name="file" id="file">
+    <input type="text" name="watermark" id="watermark">
     <input type="submit" value="Wrzuć" name="submit">
 </form>
 
@@ -7,13 +8,13 @@
 <?php
 /** @var Photo $photo */
 $photos = $this->get('photos');
-if(!empty($photos)) {
+if (!empty($photos)) {
     foreach ($photos as $photo) {
         echo "<img src=\"{$photo->url}\" title=\"{$photo->title}\"/>";
         echo "<span>{$photo->user->name}</span>";
         // TODO: better user experience
     }
-}else{
+} else {
     echo "<h2>Brak zdjęć</h2>";
 }
 ?>

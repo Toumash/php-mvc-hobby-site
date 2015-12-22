@@ -1,9 +1,12 @@
 <?php
 
+require_once ROOT . '/util/photo_utils.php';
+
 class photoController extends Controller
 {
 
     const uploadPath = "\\web\\images/";
+    const MAX_FILE_SIZE = 1000000;
 
     public function index()
     {
@@ -39,34 +42,51 @@ class photoController extends Controller
     {
         $error = null;
         $target_file = '';
+
+        $file = $_FILES['file'];
+        $text = $_POST['watermark'];
         if (!isset($_POST['submit'])) {
             $error = "Brak wysłanych danych";
+        } elseif (!isset($_POST['watermark'])) {
+            $error = "Brak znaku wodnego";
         } else {
-            $target_file = ROOT . self::uploadPath . basename($_FILES['file']["name"]);
+            $target_file = ROOT . self::uploadPath . basename($file["name"]);
 
-            if ($_FILES["file"]["size"] > 1000000) {
+            if ($file["size"] > self::MAX_FILE_SIZE) {
                 $error = "Zdjecie przekracza dopuszczalny rozmiar";
             }
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $file_name = $_FILES['file']['tmp_name'];
-            $mime_type = finfo_file($finfo, $file_name);
-            $validTypes = array('image/png', 'image/jpeg', 'image/gif', 'image/jpg');
-            if (!in_array($mime_type, $validTypes)) {
+            $validTypes = array('image/png', 'image/jpeg', 'image/jpg');
+            $mime = PhotoUtils::getMimeType($file['tmp_name']);
+            if (!in_array($mime, $validTypes)) {
                 $error = 'Niedozwolone rozszerzenie. Lista poprawnych: ' . join(',', $validTypes);
             }
         }
 
-        if ($error != null) {
-            $this->redirectTo('photo', 'index', array('error' => $error));
-        } else {
-            if (move_uploaded_file($_FILES['file']["tmp_name"], $target_file)) {
-                $this->redirectTo('photo','index');
-                echo 'OK, przekierowuję....';
+        if ($error == null) {
+            if (move_uploaded_file($file["tmp_name"], $target_file)) {
+                $name = substr($target_file, 0, strlen($target_file) - 4);
+                $extension = substr($target_file, strlen($target_file - 4));
+                PhotoUtils::watermark($target_file, $name . 'thumbnail' . $extension, $text, 14);
+                /** @var userModel $users */
+                $users = Model::load('user');
+                $usr = $users->getLoggedUser();
+
+                /** @var photoModel $model */
+                $photos = Model::load('photo');
+                if (!$photos->add($file['name'], $target_file, $usr)) {
+                    $this->responseCode(500);
+                    echo '500 Internal Server Error';
+                    exit;
+                } else {
+                    $this->redirectTo('photo', 'index');
+                    echo 'OK, przekierowuję....';
+                }
             } else {
                 $this->responseCode(500);
-                $this->redirectTo('photo','index',array());
-                echo "Internal Server Error";
+                echo "500 Internal Server Error";
             }
+        } else {
+            $this->redirectTo('photo', 'index', array('error' => $error));
         }
     }
 }

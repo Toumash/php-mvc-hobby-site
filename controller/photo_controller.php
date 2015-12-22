@@ -28,8 +28,8 @@ class photoController extends Controller
         $photoModel = Model::load('photo');
         $photos = $photoModel->getAllUserPhotos($user);
 
-        /** @var galleryView $view */
-        $view = View::load('gallery');
+        /** @var photoView $view */
+        $view = View::load('photo');
         $view->userPhotos($user,$photos);
     }
 }

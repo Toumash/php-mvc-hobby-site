@@ -17,7 +17,7 @@ class userModel extends databaseModel
     {
         //FIXME: not database users  @@@CRITICAL@@@
         if ($login == 'toumash' && $password == 'xpenetrator') {
-            $user = new User(0, 'toumash');
+            $user = new User(0, 'toumash','Tomasz Dluski');
 
 
             $_SESSION[self::USER_KEY] = $user;

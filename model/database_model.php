@@ -8,8 +8,8 @@ class databaseModel extends Model
 
     function __construct()
     {
-        if(!class_exists('MongoClient',false)){
-
+        if (!class_exists('MongoClient', false)) {
+            return;
         }
         $mongo = new MongoClient(
             "mongodb://localhost:27017/",

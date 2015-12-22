@@ -26,13 +26,7 @@
     <nav>
         <label for="show-menu" class="show-menu">Pokaż Menu</label>
         <input type="checkbox" id="show-menu" role="button"/>
-        <ul id="menu">
-            <?php
-            foreach ($this->get('menuItems') as $item => $value) {
-                echo '<li><a href="' . $value . '">' . $item . '</a></li>';
-            }
-            ?>
-        </ul>
+        <?php View::load('menu')->index(); ?>
     </nav>
     <main id="main">
         <? echo $this->get('content'); ?>

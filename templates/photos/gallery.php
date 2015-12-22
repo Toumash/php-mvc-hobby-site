@@ -1,6 +1,3 @@
-<h1><? echo $this->get('user-name'); ?></h1>
-
-
 <?php
 /** @var Photo $photo */
 foreach ($this->get('photos') as $photo) {

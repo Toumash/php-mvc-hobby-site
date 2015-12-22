@@ -5,8 +5,8 @@ abstract class Model{
       // TODO: database connection
     }
 
-    public static function loadModel($name, $path='model/') {
-        $path=$path.$name.'.php';
+    public static function load($name, $path='\model/') {
+        $path=ROOT.$path.$name.'.class.php';
         $name=$name.'Model';
         try {
             if(is_file($path)) {

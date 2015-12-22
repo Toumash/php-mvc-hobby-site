@@ -1,17 +1,17 @@
 <?php
 
-
 class Dispatcher
 {
     public function Dispatch($controller, $action)
     {
-        $path = ROOT . 'controller\\' . $controller . '.class.php';
+        $path = ROOT . '\controller\\' . $controller . '.class.php';
         $name = $controller . 'Controller';
         $ob = null;
         try {
             if (!is_file($path)) {
                 throw new Exception('Can not open controller ' . $name . ' in: ' . $path);
             }
+            /** @noinspection PhpIncludeInspection */
             require_once $path;
             /** @var Controller $ob */
             $ob = new $name();

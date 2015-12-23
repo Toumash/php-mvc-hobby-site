@@ -12,10 +12,10 @@ abstract class Controller
         $paramsString = '';
         if ($params != null) {
             foreach ($params as $key => $value) {
-                $paramsString .= "&{$key}={$value}";
+                $paramsString .= "&{$key}=" . urlencode($value);
             }
         }
-        header("location: /?c=$controller&a=$action" . $paramsString);
+        header("location: index.php?c={$controller}&a={$action}" . $paramsString);
     }
 
     /**

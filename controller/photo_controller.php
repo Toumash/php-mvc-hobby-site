@@ -48,9 +48,12 @@ class photoController extends Controller
 
         $file = $_FILES['file'];
         $text = $_POST['watermark'];
-        if (!isset($_POST['submit'])) {
+        $author = $_POST['author'];
+        $title = $_POST['title'];
+
+        if (!isset($_POST)) {
             $error = "Brak wysłanych danych";
-        } elseif (!isset($_POST['watermark'])) {
+        } elseif (empty($text)) {
             $error = "Brak znaku wodnego";
         } else {
             $target_file = ROOT . self::uploadPath . basename($file["name"]);
@@ -90,11 +93,17 @@ class photoController extends Controller
 
         /** @var userModel $users */
         $users = Model::load('user');
-        $usr = $users->getLoggedUser();
+
+        $usr = null;
+        if (!$users->isLoggedIn()) {
+            $usr = User::createAnonymous('anonim');
+        } else {
+            $usr = $users->getLoggedUser();
+        }
 
         /** @var photoModel $photos */
         $photos = Model::load('photo');
-        if (!$photos->add($file['name'], $target_file, $watermarkedLocation, $thumbnailLocation, $usr)) {
+        if (!$photos->add(new Photo($target_file, $thumbnailLocation, $watermarkedLocation, $usr, $title, $author))) {
             $error = 3;
         }
 

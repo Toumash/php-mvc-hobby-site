@@ -10,16 +10,19 @@ class Photo
     /**
      * @var User
      */
-    public $user;
+    public $owner;
+
+    public $author;
 
     public $title;
 
-    public function __construct($url, $thumbnailUrl,$watermarkUrl,$user, $title)
+    public function __construct($url, $thumbnailUrl,$watermarkUrl,$user, $title,$author)
     {
         $this->originalUrl = $url;
         $this->thumbnailUrl = $thumbnailUrl;
         $this->watermarkUrl = $watermarkUrl;
-        $this->user = $user;
+        $this->owner = $user;
         $this->title = $title;
+        $this->author = $author;
     }
 }

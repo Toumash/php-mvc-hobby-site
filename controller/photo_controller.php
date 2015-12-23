@@ -1,5 +1,4 @@
 <?php
-
 require_once ROOT . '/util/photo_utils.php';
 
 class photoController extends Controller
@@ -18,7 +17,9 @@ class photoController extends Controller
 
         /** @var photoView $view */
         $view = View::load('photo');
+        $view->set('photo-upload-error', $this->getSessionError('photo-upload'));
         $view->gallery($photos);
+        $this->clearError('photo-upload');
     }
 
     public function userPhotos()
@@ -40,28 +41,20 @@ class photoController extends Controller
         $view->userPhotos($user, $photos);
     }
 
-    // FIXME: little bit too complicated
     public function upload()
     {
+        $validTypes = ['image/png', 'image/jpeg', 'image/jpg'];
         $error = null;
-        $target_file = '';
-
-        $file = $_FILES['file'];
-        $text = $_POST['watermark'];
-        $author = $_POST['author'];
-        $title = $_POST['title'];
 
         if (!isset($_POST)) {
             $error = "Brak wysłanych danych";
-        } elseif (empty($text)) {
-            $error = "Brak znaku wodnego";
+        } else if (!isset($_FILES['file'], $_POST['watermark'], $_POST['author'], $_POST['title'])) {
+            $error = "Nie wprowadzono wszystkich wymaganych danych";
+        }
+        $file = isset($_FILES['file']) ? $_FILES['file'] : null;
+        if ($file['size'] > self::MAX_FILE_SIZE) {
+            $error = "Zdjecie przekracza dopuszczalny rozmiar";
         } else {
-            $target_file = ROOT . self::uploadPath . basename($file["name"]);
-
-            if ($file["size"] > self::MAX_FILE_SIZE) {
-                $error = "Zdjecie przekracza dopuszczalny rozmiar";
-            }
-            $validTypes = array('image/png', 'image/jpeg', 'image/jpg');
             $mime = PhotoUtils::getMimeType($file['tmp_name']);
             if (!in_array($mime, $validTypes)) {
                 $error = 'Niedozwolone rozszerzenie. Lista poprawnych: ' . join(',', $validTypes);
@@ -69,31 +62,37 @@ class photoController extends Controller
         }
 
         if ($error != null) {
-            $this->redirectTo('photo', 'index', array('error' => $error));
+            $this->redirectTo('photo', 'index');
+            $this->setSessionError('photo-upload', $error);
             return;
         }
+
+        $target_file = ROOT . self::uploadPath . basename($file["name"]);
+
         if (!move_uploaded_file($file["tmp_name"], $target_file)) {
             $this->responseCode(500);
             echo "500 Internal Server Error";
             return;
         }
 
+        $text = $_POST['watermark'];
+        $author = $_POST['author'];
+        $title = $_POST['title'];
         $name = substr($target_file, 0, strlen($target_file) - 4);
         $extension = substr($target_file, strlen($target_file - 4));
 
         $watermarkedLocation = $name . 'watermark' . $extension;
-        if (!PhotoUtils::watermark($target_file, $watermarkedLocation, $text, 14)) {
-            $error = 1;
-        }
-
         $thumbnailLocation = $name . 'thumbnail' . $extension;
+
+        if (!PhotoUtils::watermark($target_file, $watermarkedLocation, $text, 14)) {
+            $error = "Nie mozna stworzyc znaku wodnego";
+        }
         if (!PhotoUtils::createThumbnail($target_file, $thumbnailLocation, self::THUMBNAIL_WIDTH, self::THUMBNAIL_HEIGHT)) {
-            $error = 2;
+            $error = "Nie mozna stworzyc miniaturki";
         }
 
         /** @var userModel $users */
         $users = Model::load('user');
-
         $usr = null;
         if (!$users->isLoggedIn()) {
             $usr = User::createAnonymous('anonim');
@@ -104,7 +103,7 @@ class photoController extends Controller
         /** @var photoModel $photos */
         $photos = Model::load('photo');
         if (!$photos->add(new Photo($target_file, $thumbnailLocation, $watermarkedLocation, $usr, $title, $author))) {
-            $error = 3;
+            $error = "Nie mozna dodac zdjecia do bazy danych";
         }
 
         if ($error == null) {
@@ -113,7 +112,10 @@ class photoController extends Controller
         } else {
             $this->responseCode(500);
             echo '500 Internal Server Error. Error code:' . $error;
-            exit;
         }
+    }
+
+    public function init()
+    {
     }
 }

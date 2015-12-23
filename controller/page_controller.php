@@ -12,4 +12,8 @@ class pageController extends Controller
         $view = View::load('page');
         $view->page($pageName);
     }
+
+    public function init()
+    {
+    }
 }

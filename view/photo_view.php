@@ -23,7 +23,7 @@ class photoView extends View
     {
         $this->set('photos', $photos);
         $this->set('title', 'Galeria zdjęć użyszkodników');
-        $content = $this->render('photos/gallery', false);
+        $content = $this->render('gallery', false,'\\templates\\photos/');
         $this->set('content', $content);
         $this->render('default', true);
     }

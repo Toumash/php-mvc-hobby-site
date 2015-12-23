@@ -25,16 +25,16 @@ abstract class View
         return $ob;
     }
 
-    public function render($name, $output = true, $path = '\templates/',$extension = '.php')
+    public function render($name, $output = true, $path = '\\templates\\', $extension = '.php')
     {
         $path = ROOT . $path . $name . $extension;
         try {
             if (is_file($path)) {
-                if(!$output){
+                if (!$output) {
                     ob_start();
                 }
                 require $path;
-                if(!$output){
+                if (!$output) {
                     // returns buffered output
                     return ob_get_clean();
                 }
@@ -48,6 +48,11 @@ abstract class View
                 Trace: ' . $e->getTraceAsString();
             exit;
         }
+    }
+
+    function generateUrl($controller, $action, $params = null)
+    {
+        return Controller::generateUrl($controller, $action, $params);
     }
 
     public function set($name, $value)

@@ -26,11 +26,16 @@ class photoModel extends databaseModel
         return array(new Photo('troll.png', 'troll.thumbnail.png', 'troll.watermark.png', $user, 'Beautifull world ofr demacia','Paolo Coelho'));
     }
 
+    /**
+     * @param Photo $photo
+     * @return bool
+     */
     public function add(Photo $photo)
     {
         if ($photo->owner == null) {
             $photo->owner = User::createAnonymous('Anonim');
         }
+        return true;
         // FIXME: actual database operation
     }
 }

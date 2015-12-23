@@ -30,6 +30,7 @@ class userModel extends databaseModel
     public function logOut()
     {
         $_SESSION[self::USER_KEY] = null;
+        session_destroy();
     }
 
     public function register($login, $password, $email)

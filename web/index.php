@@ -6,6 +6,7 @@ define('DEFAULT_CONTROLLER', 'page');
 require ROOT . '\controller\controller.php';
 require ROOT . '\model\model.php';
 require ROOT . '\view\view.php';
+error_reporting(E_ALL|E_STRICT);
 
 
 $disp = new Dispatcher();

@@ -1,13 +1,18 @@
 <?php
-class menuView extends View{
-    public function index(){
-        $menuItems = array(
-            'Wstęp' => '?c=page&page=intro',
-            'Podstawy C#' => '?c=page&page=tut',
-            'Galeria' => '?c=photo',
-            'Kontakt' => '?c=page&page=contact'
-        );
+
+class menuView extends View
+{
+    public function index()
+    {
+        $items = ['Wstęp' => ['page', 'intro'],
+            'Podstawy C#' => ['page', 'tut'],
+            'Galeria' => ['photo', 'index'],
+            'Kontakt' => ['page', 'contact']];
+        $menuItems = [];
+        foreach ($items as $item => $value) {
+            $menuItems[] = ['name' => $item, 'url' => $this->generateUrl($value[0], $value[1])];
+        }
         $this->set('menu-items', $menuItems);
-        $this->render('menu',true);
+        $this->render('menu', true);
     }
 }

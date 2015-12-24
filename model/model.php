@@ -4,12 +4,13 @@ abstract class Model
 {
     public static function load($name, $path = '\model/')
     {
-        $path = ROOT . $path . $name . '_model.php';
+        $path = ROOT . $path . $name . 'model.php';
         $name = $name . 'Model';
         try {
             if (is_file($path)) {
                 require $path;
-                $ob = new $name();
+                return new $name();
+
             } else {
                 throw new Exception('Can not open model ' . $name . ' in: ' . $path);
             }
@@ -20,6 +21,5 @@ abstract class Model
                 Trace: ' . $e->getTraceAsString();
             exit;
         }
-        return $ob;
     }
 }

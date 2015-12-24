@@ -4,9 +4,9 @@ abstract class View
 {
     private $data = array();
 
-    public static function load($name, $path = '\view/')
+    public static function load($name, $path = '/view/')
     {
-        $path = ROOT . $path . $name . '_view.php';
+        $path = ROOT . $path . $name . 'view.php';
         $name = $name . 'View';
         try {
             if (is_file($path)) {
@@ -41,6 +41,7 @@ abstract class View
             } else {
                 throw new Exception('Can not open template ' . $name . ' in: ' . $path);
             }
+            return null;
         } catch (Exception $e) {
             echo $e->getMessage() . '<br />
                 File: ' . $e->getFile() . '<br />
@@ -52,7 +53,7 @@ abstract class View
 
     function generateUrl($controller, $action, $params = null)
     {
-        return Controller::generateUrl($controller, $action, $params);
+        return controller::generateUrl($controller, $action, $params);
     }
 
     public function set($name, $value)

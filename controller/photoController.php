@@ -1,7 +1,7 @@
 <?php
 require_once ROOT . '/util/photo_utils.php';
 
-class photoController extends Controller
+class photoController extends controller
 {
 
     const uploadPath = "\\web\\images/";
@@ -9,11 +9,15 @@ class photoController extends Controller
     const THUMBNAIL_WIDTH = 200;
     const THUMBNAIL_HEIGHT = 125;
 
+    /**
+     * @var photoModel
+     */
+    private $photoModel;
+
+
     public function index()
     {
-        /** @var photoModel $model */
-        $model = Model::load('photo');
-        $photos = $model->getAllPublicPhotos();
+        $photos = $this->photoModel->getAllPublicPhotos();
 
         /** @var photoView $view */
         $view = View::load('photo');
@@ -24,7 +28,7 @@ class photoController extends Controller
 
     public function userPhotos()
     {
-        /** @var userModel $userModel */
+        /** @var stubUserModel $userModel */
         $userModel = Model::load('user');
         if (!$userModel->isLoggedIn()) {
             $this->redirectTo('photo', 'index');
@@ -32,9 +36,7 @@ class photoController extends Controller
         }
 
         $user = $userModel->getLoggedUser();
-        /** @var photoModel $photoModel */
-        $photoModel = Model::load('photo');
-        $photos = $photoModel->getAllUserPhotos($user);
+        $photos = $this->photoModel->getAllUserPhotos($user);
 
         /** @var photoView $view */
         $view = View::load('photo');
@@ -91,18 +93,16 @@ class photoController extends Controller
             $error = "Nie mozna stworzyc miniaturki";
         }
 
-        /** @var userModel $users */
-        $users = Model::load('user');
+        /** @var stubUserModel $users */
+        $users = Model::load('User');
         $usr = null;
         if (!$users->isLoggedIn()) {
-            $usr = User::createAnonymous('anonim');
+            $usr = User::anonymous();
         } else {
             $usr = $users->getLoggedUser();
         }
 
-        /** @var photoModel $photos */
-        $photos = Model::load('photo');
-        if (!$photos->add(new Photo($target_file, $thumbnailLocation, $watermarkedLocation, $usr, $title, $author))) {
+        if (!$this->photoModel->add(new Photo($target_file, $thumbnailLocation, $watermarkedLocation, $title, $author),$usr)) {
             $error = "Nie mozna dodac zdjecia do bazy danych";
         }
 
@@ -117,5 +117,6 @@ class photoController extends Controller
 
     public function init()
     {
+        $this->photoModel = Model::load('photo');
     }
 }

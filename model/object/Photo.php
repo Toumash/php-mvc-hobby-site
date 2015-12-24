@@ -2,27 +2,34 @@
 
 class Photo
 {
+    public $id;
     public $originalUrl;
     public $thumbnailUrl;
     public $watermarkUrl;
 
-
     /**
-     * @var User
+     * @var integer
      */
-    public $owner;
-
+    public $ownerId;
     public $author;
 
     public $title;
+    private $public;
 
-    public function __construct($url, $thumbnailUrl,$watermarkUrl,$user, $title,$author)
+    public function __construct($url, $thumbnailUrl, $watermarkUrl, $title, $author, $id = null, $public = true)
     {
         $this->originalUrl = $url;
         $this->thumbnailUrl = $thumbnailUrl;
         $this->watermarkUrl = $watermarkUrl;
-        $this->owner = $user;
         $this->title = $title;
         $this->author = $author;
+        $this->id = $id;
+        $this->public = $public;
     }
+
+    public function isPublic()
+    {
+        return $this->public;
+    }
+
 }

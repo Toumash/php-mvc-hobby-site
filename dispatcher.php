@@ -4,7 +4,7 @@ class Dispatcher
 {
     public function Dispatch($controller, $action)
     {
-        $path = ROOT . '\controller\\' . $controller . '_controller.php';
+        $path = ROOT . '\controller\\' . $controller . 'Controller.php';
         $name = $controller . 'Controller';
         $ob = null;
         try {
@@ -13,7 +13,7 @@ class Dispatcher
             }
             /** @noinspection PhpIncludeInspection */
             require_once $path;
-            /** @var Controller $ob */
+            /** @var controller $ob */
             $ob = new $name();
 
             if(is_callable(array($ob,$action))) {

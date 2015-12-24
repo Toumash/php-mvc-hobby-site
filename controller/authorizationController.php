@@ -1,10 +1,10 @@
 <?php
 
 
-class authorizationController extends Controller
+class authorizationController extends controller
 {
     /**
-     * @var userModel $users
+     * @var stubUserModel $users
      */
     private $users;
 

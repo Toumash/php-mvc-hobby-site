@@ -1,6 +1,6 @@
 <?php
 
-require_once ROOT . '/model/database.php';
+require_once ROOT . '/model/Database.php';
 
 abstract class DatabaseModel
 {

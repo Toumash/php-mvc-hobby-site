@@ -13,4 +13,3 @@ if (!empty($photos)) {
     echo "<h2>Brak zdjęć</h2>";
 }
 ?>
-<h3>This need to be optimized in PHP for better experience</h3>

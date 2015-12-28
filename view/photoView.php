@@ -11,7 +11,7 @@ class photoView extends View
     public function userPhotos($user, $photos)
     {
 
-        $this->set('user-name', $user->name);
+        $this->set('user-name', $user->login);
         $this->set('photos', $photos);
         $content = $this->render('photos/user_photos', false);
 
@@ -24,6 +24,7 @@ class photoView extends View
         $this->set('photos', $photos);
         $this->set('title', 'Galeria zdjęć użyszkodników');
         $content = $this->render('gallery', false,'\\templates\\photos/');
+
         $this->set('content', $content);
         $this->render('default', true);
     }

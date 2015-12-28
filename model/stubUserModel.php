@@ -3,7 +3,7 @@
 require_once ROOT . '/model/object/User.php';
 require_once ROOT . '/model/interface/UserModelInterface.php';
 
-class stubUserModel extends Database implements UserModelInterface
+class stubUserModel extends DatabaseModel implements UserModelInterface
 {
     const USER_KEY = 'user';
     private $session = array();
@@ -57,5 +57,15 @@ class stubUserModel extends Database implements UserModelInterface
     public function getLoggedUser()
     {
         return $this->session[self::USER_KEY];
+    }
+
+    function emailExists($email)
+    {
+        foreach ($this->users as $login => $user) {
+            if ($user[0]->email == $email) {
+                return true;
+            }
+        }
+        return false;
     }
 }

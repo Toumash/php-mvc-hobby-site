@@ -1,3 +1,5 @@
 <?php
-echo "Login: {$this->get('login')}";
-echo "Name: {$this->get('name')}";
+$user = $this->get('user');
+?>
+<span>Login: <?php echo $user->login ?></span>
+<span>Email: <?php echo $user->email ?></span>

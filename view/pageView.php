@@ -15,7 +15,7 @@ class pageView extends View
 
     public function page($name)
     {
-        if (is_file(ROOT . '\pages/' . $name . '.html')) {
+        if (is_file(ROOT . '/pages/' . $name . '.html')) {
             $content = $this->renderPage($name, false);
             $this->set('content', $content);
             $this->render('default', true);

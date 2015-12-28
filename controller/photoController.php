@@ -102,7 +102,7 @@ class photoController extends controller
             $usr = $users->getLoggedUser();
         }
 
-        if (!$this->photoModel->add(new Photo($target_file, $thumbnailLocation, $watermarkedLocation, $title, $author),$usr)) {
+        if (!$this->photoModel->add(new Photo($target_file, $thumbnailLocation, $watermarkedLocation, $title, $author), $usr)) {
             $error = "Nie mozna dodac zdjecia do bazy danych";
         }
 

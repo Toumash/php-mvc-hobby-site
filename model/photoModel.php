@@ -7,13 +7,14 @@ require_once ROOT . '/model/DatabaseModel.php';
 
 class PhotoModel extends DatabaseModel implements PhotoModelInterface
 {
+
     /**
      * @return Photo[]
      */
     public function getAllPublicPhotos()
     {
         $data = $this->db->selectCollection('photos');
-        $data->find(['public' => true]);
+        return $data->find(['public' => true]);
     }
 
     /**
@@ -22,7 +23,24 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
      */
     public function getAllUserPhotos(User $user)
     {
-        //TODO:logic
+        $photos = $this->db->selectCollection('photos');
+        $query = ['owner-id' => $user->id];
+        $result = $photos->find($query);
+        $results = array();
+        foreach ($result as $item) {
+            array_push($results, self::photoFromArray($item));
+        }
+        return $results;
+
+        // PHP5.5
+        /*foreach ($result as $item) {
+            yield new Photo($item['original-url'],$item['thumbnail-url'],$item['watermark-url'],$item['title'],$item['author'],$item['_id'],$item['public']);
+        }*/
+    }
+
+    public static function photoFromArray(array $data)
+    {
+        return new Photo($data['original-url'], $data['thumbnail-url'], $data['watermark-url'], $data['title'], $data['author'], $data['_id'], $data['public']);
     }
 
     /**
@@ -33,6 +51,17 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
     public function add(Photo $photo, User $owner)
     {
         $photo->ownerId = $owner->id;
-        //TODO: logic
+        $photos = $this->db->selectCollection('photos');
+        $obj = self::photoToArray($photo);
+        $photos->insert($obj);
+    }
+
+    public static function photoToArray(Photo $photo)
+    {
+        return ['original-url' => $photo->originalUrl,
+            'thumbnail-url' => $photo->thumbnailUrl,
+            'watermark-url' => $photo->watermarkUrl,
+            'owner-id' => $photo->ownerId,
+            'title' => $photo->title];
     }
 }

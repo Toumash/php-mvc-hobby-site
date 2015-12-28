@@ -31,6 +31,12 @@ abstract class controller
         header("location: " . $url);
     }
 
+    public function pleaseLogin(){
+        $msg = "Część witryny dostępna jest dopiero po zalogowaniu";
+        $this->setSessionError('login-error',$msg);
+        $this->redirectTo('authorization','login_form');
+    }
+
     public function redirectTo($controller, $action, $params = null)
     {
         header("location: {$this->generateUrl($controller,$action,$params)}");

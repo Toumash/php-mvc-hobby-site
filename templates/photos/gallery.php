@@ -19,8 +19,7 @@ $photos = $this->get('photos');
 if (!empty($photos)) {
     foreach ($photos as $photo) {
         echo "<a href=\"{$photo->watermarkUrl}\"><img src=\"{$photo->thumbnailUrl}\" title=\"{$photo->title}\"/></a>";
-        echo "<span>{$photo->ownerId->name}</span>";
-        // TODO: better user experience
+        echo "<span>{$photo->ownerId}</span>";
     }
 } else {
     echo "<h2>Brak zdjęć</h2>";

@@ -1,10 +1,10 @@
 <?php
 
-require_once ROOT.'/model/object/User.php';
-require_once ROOT.'/model/interface/UserModelInterface.php';
+require_once ROOT . '/model/object/User.php';
+require_once ROOT . '/model/interface/UserModelInterface.php';
 require_once ROOT . '/model/DatabaseModel.php';
 
-class UserModel extends Database implements UserModelInterface
+class UserModel extends DatabaseModel implements UserModelInterface
 {
     const USER_KEY = 'user';
 
@@ -19,7 +19,13 @@ class UserModel extends Database implements UserModelInterface
 
     public function logIn($login, $password)
     {
-        //TODO: logic
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+
+        $users = $this->db->selectCollection('users');
+        if ($users->findOne(['login' => $login, 'password' => $hash])) {
+            return true;
+        }
+        return false;
     }
 
     public function logOut()
@@ -29,14 +35,40 @@ class UserModel extends Database implements UserModelInterface
         session_unset();
     }
 
-    public function loginExists($login)
-    {
-        //TODO: logic
-    }
-
     public function register($login, $password, $email)
     {
-        // TODO: logic
+        if ($this->loginExists($login)) {
+            return false;
+        }
+        if ($this->emailExists($email)) {
+            return false;
+        }
+        $users = $this->db->selectCollection('users');
+        $obj = [
+            'login' => $login,
+            'password' => $password,
+            'email' => $email
+        ];
+        $users->insert($obj);
+        return true;
+    }
+
+    public function loginExists($login)
+    {
+        $users = $this->db->selectCollection('users');
+        if ($users->findOne(['login' => $login])) {
+            return true;
+        }
+        return false;
+    }
+
+    public function emailExists($email)
+    {
+        $users = $this->db->selectCollection('users');
+        if ($users->findOne(['email' => $email])) {
+            return true;
+        }
+        return false;
     }
 
     public function getLoggedUser()

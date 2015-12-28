@@ -15,7 +15,7 @@ class userController extends controller
     public function index()
     {
         if (!$this->userModel->isLoggedIn()) {
-
+            $this->redirectTo('authorization','login_form');
             return;
         }
         $usr = $this->userModel->getLoggedUser();
@@ -27,7 +27,7 @@ class userController extends controller
     public function photos()
     {
         if (!$this->userModel->isLoggedIn()) {
-            $this->redirectTo('user', 'login');
+            $this->redirectTo('user', 'login_form');
         }
     }
 }

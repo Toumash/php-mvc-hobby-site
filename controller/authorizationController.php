@@ -6,7 +6,7 @@ class authorizationController extends controller
     const REGISTRATION_ERROR = 'registration-error';
     const LOGIN_ERROR = 'login-error';
     /**
-     * @var stubUserModel $users
+     * @var userModel $users
      */
     private $users;
 
@@ -57,6 +57,7 @@ class authorizationController extends controller
         /** @var registrationView $registerView */
         $registerView = View::load('registration');
         $registerView->index($errors);
+        $this->clearError(self::REGISTRATION_ERROR);
     }
 
     public function register()
@@ -84,10 +85,14 @@ class authorizationController extends controller
                 throw new ValidationException("Podany adres email jest nieprawidłowy");
             }
             if ($this->users->loginExists($login)) {
-                throw new ValidationException("Login already exists");
+                throw new ValidationException("Podany login już istnieje");
             }
-
-            $this->users->register($login, $password, $email);
+            if(!$this->users->emailExists($email)){
+                throw new ValidationException("Podany email już istnieje");
+            }
+            if(!$this->users->register($login, $password, $email)){
+                throw new ValidationException("Błąd");
+            }
             $this->redirectTo('authorization', 'login_form');
         } catch (ValidationException $e) {
             $this->setSessionError(self::REGISTRATION_ERROR, $e->getMessage());

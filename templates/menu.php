@@ -1,6 +1,7 @@
 <ul id="menu">
     <?php
-    foreach ($this->get('menu-items') as $item) {
+    $items = $this->get('menu-items');
+    foreach ($items as $item) {
         echo '<li><a href="' . $item['url'] . '">' . $item['name'] . '</a></li>';
     }
     ?>

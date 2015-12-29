@@ -12,14 +12,18 @@ class Database
             die('No MongoClient installed. Check your config');
         }
         if (self::$db == null) {
-            $mongo = new MongoClient(
-                "mongodb://localhost:27017/",
-                [
-                    'username' => 'wai_web',
-                    'password' => 'w@i_w3b',
-                    'db' => $dbName,
-                ]);
-
+            try {
+                $mongo = new MongoClient(
+                    "mongodb://localhost:27017/",
+                    [
+                        'username' => 'wai_web',
+                        'password' => 'w@i_w3b',
+                        'db' => $dbName,
+                    ]);
+            } catch (MongoConnectionException $e) {
+                echo $e->getMessage();
+                exit;
+            }
             self::$db = $mongo->selectDB($dbName);;
         }
         return self::$db;

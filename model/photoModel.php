@@ -68,7 +68,7 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
     public function getAllUserPhotos(User $user)
     {
         $photos = $this->db->selectCollection('photos');
-        $query = ['owner-id' => $user->id];
+        $query = ['owner-id' => $user->_id];
         $result = $photos->find($query);
         $results = array();
         foreach ($result as $item) {

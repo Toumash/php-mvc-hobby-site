@@ -44,7 +44,7 @@ class authorizationController extends controller
             $this->redirectTo('authorization', 'login_form');
         }
     }
-    
+
     public function logout()
     {
         $this->users->logOut();

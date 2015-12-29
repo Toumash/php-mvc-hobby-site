@@ -40,7 +40,7 @@ class StubPhotoModel implements PhotoModelInterface
         $userPhotos = array();
         /** @var Photo $photo */
         foreach ($this - $this->photos as $photo) {
-            if ($photo->ownerId == $user->id) {
+            if ($photo->ownerId == $user->_id) {
                 array_push($userPhotos, $photo);
             }
         }

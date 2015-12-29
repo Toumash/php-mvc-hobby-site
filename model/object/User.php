@@ -2,13 +2,13 @@
 
 class User
 {
-    public $id;
+    public $_id;
     public $login;
     public $email;
 
-    public function __construct($id, $login, $email)
+    public function __construct($_id, $login, $email)
     {
-        $this->id = $id;
+        $this->_id = $_id;
         $this->login = $login;
         $this->email = $email;
     }

@@ -1,5 +1,5 @@
 <?php
-$isLogged = $this->get('is-logged');
+$isLogged = $this->get('logged');
 /** @var Photo[] $photos */
 $photos = $this->get('photos');
 $error = $this->get('photo-upload-error');
@@ -19,8 +19,8 @@ $error = $this->get('photo-upload-error');
         <input type="file" name="file" id="file" required/>
         <?php if ($isLogged): ?>
             Prywatność:
-            <input type="radio" name="public" id="author" value="true" title="publiczne"/>
-            <input type="radio" name="public" id="author" value="false" title="prywatne"/>
+            <label>Publiczne><input type="radio" name="public" id="author" value="true" checked="checked"/></label>
+            <label>Prywatne<input type="radio" name="public" id="author" value="false"/></label>
         <?php endif; ?>
         <input type="submit" value="Wrzuć" name="submit"/>
     </form>

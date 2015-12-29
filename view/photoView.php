@@ -22,7 +22,7 @@ class photoView extends View
     public function gallery($isLogged, $photos, $error)
     {
         $this->set('photos', $photos);
-        $this->set('is-logged', $isLogged);
+        $this->set('logged', $isLogged);
         $this->set('photo-upload-error', $error);
         $this->set('title', 'Galeria zdjęć użyszkodników');
         $content = $this->render('photos/gallery', false);

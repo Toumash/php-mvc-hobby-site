@@ -66,18 +66,18 @@ class authorizationController extends controller
             return;
         }
         try {
-            if (!isset($_POST['login'], $_POST['password'], $_POST['passoword_repeat'], $_POST['email'])) {
+            if (!isset($_POST['login']) && !isset($_POST['password']) && !isset($_POST['password_repeat']) && !isset($_POST['email'])) {
                 throw new ValidationException("Nie wprowadzono wszystkich danych");
             }
             $login = $_POST['login'];
             $password = $_POST['password'];
-            $password_repeat = $_POST['password_reapeat'];
+            $password_repeat = $_POST['password_repeat'];
             $email = $_POST['email'];
 
             if (strlen($login) < 3) {
                 throw new ValidationException("Wybrany login jest zbyt krótki");
             }
-            if (!strcmp($password, $password_repeat) !== 0) {
+            if ($password !== $password_repeat) {
                 throw new ValidationException("Wprowadzone hasła różnią się");
             }
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -88,8 +88,7 @@ class authorizationController extends controller
             }
 
             $this->users->register($login, $password, $email);
-            die('yay');
-            $this->redirectTo('authorization', 'confirmation');
+            $this->redirectTo('authorization', 'login_form');
         } catch (ValidationException $e) {
             $this->setSessionError(self::REGISTRATION_ERROR, $e->getMessage());
             $this->redirectTo('authorization', 'register_form');

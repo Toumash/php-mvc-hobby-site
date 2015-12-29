@@ -2,7 +2,7 @@
     <input type="text" name="login" placeholder="login"/>
     <input type="email" name="email" placeholder="someone@example.com"/>
     <input type="password" name="password" placeholder="xxxxxxx"/>
-    <input type="password" name="repeat_password" placeholder="xxxxxxx"/>
+    <input type="password" name="password_repeat" placeholder="xxxxxxx"/>
     <input type="submit" value="OK"/>
 </form>
 

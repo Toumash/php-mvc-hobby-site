@@ -19,12 +19,22 @@ class photoView extends View
         $this->render('default', true);
     }
 
-    public function gallery($photos)
+    public function gallery($photos, $error)
     {
         $this->set('photos', $photos);
+        $this->set('photo-upload-error', $error);
         $this->set('title', 'Galeria zdjęć użyszkodników');
-        $content = $this->render('gallery', false,'\\templates\\photos/');
+        $content = $this->render('gallery', false, '/templates/photos/');
 
+        $this->set('content', $content);
+        $this->render('default', true);
+    }
+
+    public function remembered($photos)
+    {
+        $this->set('photos', $photos);
+        $this->set('title', 'Zdjęcia zapamiętane przez użytkownika');
+        $content = $this->render('remembered', false, '/templates/photos/');
         $this->set('content', $content);
         $this->render('default', true);
     }

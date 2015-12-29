@@ -56,12 +56,12 @@ abstract class View
         return controller::generateUrl($controller, $action, $params);
     }
 
-    public function set($name, $value)
+    protected function set($name, $value)
     {
         $this->data[$name] = $value;
     }
 
-    public function get($name)
+    protected function get($name)
     {
         return $this->data[$name];
     }

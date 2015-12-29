@@ -22,7 +22,9 @@ class UserModel extends DatabaseModel implements UserModelInterface
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
         $users = $this->db->selectCollection('users');
-        if ($users->findOne(['login' => $login, 'password' => $hash])) {
+        $usr = $users->findOne(['login' => (string)$login, 'password' => (string)$hash]);
+        if ($usr) {
+            $_SESSION[self::USER_KEY] = new User($usr['_id'], $usr['login'], $usr['email']);
             return true;
         }
         return false;
@@ -45,9 +47,9 @@ class UserModel extends DatabaseModel implements UserModelInterface
         }
         $users = $this->db->selectCollection('users');
         $obj = [
-            'login' => $login,
-            'password' => $password,
-            'email' => $email
+            'login' => (string)$login,
+            'password' => (string)$password,
+            'email' => (string)$email
         ];
         $users->insert($obj);
         return true;
@@ -56,7 +58,7 @@ class UserModel extends DatabaseModel implements UserModelInterface
     public function loginExists($login)
     {
         $users = $this->db->selectCollection('users');
-        if ($users->findOne(['login' => $login])) {
+        if ($users->findOne(['login' => (string)$login])) {
             return true;
         }
         return false;
@@ -65,7 +67,7 @@ class UserModel extends DatabaseModel implements UserModelInterface
     public function emailExists($email)
     {
         $users = $this->db->selectCollection('users');
-        if ($users->findOne(['email' => $email])) {
+        if ($users->findOne(['email' => (string)$email])) {
             return true;
         }
         return false;

@@ -21,8 +21,7 @@ class photoController extends controller
 
         /** @var photoView $view */
         $view = View::load('photo');
-        $view->set('photo-upload-error', $this->getSessionError('photo-upload'));
-        $view->gallery($photos);
+        $view->gallery($photos, $this->getSessionError('photo-upload'));
         $this->clearError('photo-upload');
     }
 
@@ -41,6 +40,39 @@ class photoController extends controller
         /** @var photoView $view */
         $view = View::load('photo');
         $view->userPhotos($user, $photos);
+    }
+
+    public function remember()
+    {
+        $toRemember = array();
+        if (!empty($_POST) && isset($_POST['photo'])) {
+            foreach ($_POST['photo'] as $photoId) {
+                if ($this->photoModel->exists($photoId)) {
+                    $toRemember[] = $photoId;
+                }
+            }
+        }
+        $_SESSION['photo']['session-list'] = $toRemember;
+        $this->redirectTo('photo', 'index');
+    }
+
+    public function forget()
+    {
+        if (!empty($_POST) && isset($_POST['photo'])) {
+            $remembered = array_diff($_SESSION['photo']['session-list'], $_POST['photo']);
+            $_SESSION['photo']['session-list'] = $remembered;
+        }
+
+        $this->redirectTo('photo', 'index');
+    }
+
+    public function show_remembered()
+    {
+        $ids = $_SESSION['photo']['session-list'];
+        $photos = $this->photoModel->getPhotos($ids);
+        /** @var photoView $view */
+        $view = View::load('photo');
+        $view->remembered($photos);
     }
 
     public function upload()

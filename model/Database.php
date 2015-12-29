@@ -20,7 +20,7 @@ class Database
                     'db' => $dbName,
                 ]);
 
-            $db = $mongo->selectDB($dbName);;
+            self::$db = $mongo->selectDB($dbName);;
         }
         return self::$db;
     }

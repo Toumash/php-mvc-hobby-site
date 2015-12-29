@@ -21,4 +21,10 @@ interface PhotoModelInterface
      * @return bool
      */
     function add(Photo $photo, User $owner);
+
+    /**
+     * @param $id string
+     * @return bool
+     */
+    function exists($id);
 }

@@ -17,6 +17,40 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
         return $data->find(['public' => true]);
     }
 
+    public function getPhoto($id)
+    {
+        $photos = $this->db->selectCollection('photos');
+        $result = $photos->find(['_id' => new MongoId($id)]);
+
+        if ($result->hasNext()) {
+            return self::photoFromArray($result->getNext());
+        } else {
+            return null;
+        }
+    }
+
+    public static function photoFromArray(array $data)
+    {
+        $photo = new Photo($data['original-url'], $data['thumbnail-url'], $data['watermark-url'], $data['title'], $data['author'], $data['_id'], $data['public']);
+        $photo->ownerId = $data['owner-id'];
+        return $photo;
+    }
+
+    public function getPhotos(array $ids)
+    {
+        $photos = $this->db->selectCollection('photos');
+        $mongoIds = array();
+        foreach ($ids as $id) {
+            $mongoIds[] = new MongoId($id);
+        }
+        $result = $photos->find(['_id' => ['$in' => $mongoIds]]);
+        $results = array();
+        foreach ($result as $item) {
+            array_push($results, self::photoFromArray($item));
+        }
+        return $results;
+    }
+
     /**
      * @param User $user
      * @return Photo[]
@@ -38,9 +72,10 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
         }*/
     }
 
-    public static function photoFromArray(array $data)
+    public function exists($id)
     {
-        return new Photo($data['original-url'], $data['thumbnail-url'], $data['watermark-url'], $data['title'], $data['author'], $data['_id'], $data['public']);
+        $photos = $this->db->selectCollection('photos');
+        return $photos->findOne(['_id' => new MongoId($id)]) ? true : false;
     }
 
     /**
@@ -53,7 +88,7 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
         $photo->ownerId = $owner->id;
         $photos = $this->db->selectCollection('photos');
         $obj = self::photoToArray($photo);
-        $photos->insert($obj);
+        return $photos->insert($obj);
     }
 
     public static function photoToArray(Photo $photo)
@@ -61,7 +96,9 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
         return ['original-url' => $photo->originalUrl,
             'thumbnail-url' => $photo->thumbnailUrl,
             'watermark-url' => $photo->watermarkUrl,
-            'owner-id' => $photo->ownerId,
-            'title' => $photo->title];
+            'owner-id' => (int)$photo->ownerId,
+            'title' => $photo->title,
+            'public' => $photo->isPublic(),
+            'author' => $photo->author];
     }
 }

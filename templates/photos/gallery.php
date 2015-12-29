@@ -14,14 +14,26 @@ $error = $this->get('photo-upload-error');
 if (!empty($error)) {
     echo "<span style='color:red''>" . htmlentities($error) . "</span>";
 }
+
 /** @var Photo $photo */
 $photos = $this->get('photos');
 if (!empty($photos)) {
-    foreach ($photos as $photo) {
-        echo "<a href=\"{$photo->watermarkUrl}\"><img src=\"{$photo->thumbnailUrl}\" title=\"{$photo->title}\"/></a>";
-        echo "<span>{$photo->ownerId}</span>";
-    }
+    ?>
+    <form method="post" action="<?php echo $this->generateUrl('photo', 'remember'); ?>">
+        <?php
+        foreach ($photos as $photo):
+            ?>
+            <div><a href=" <?php echo $photo->watermarkUrl ?>"><img src=" <?php echo $photo->thumbnailUrl ?>"
+                                                                    title="<?php echo $photo->title ?>"/></a>
+                <span><?php echo $photo->author ?></span>
+                <input type="checkbox" name="photo[]" value="<?php echo $photo->id ?>" title="Save Image"/>
+            </div>
+        <?php endforeach; ?>
+        <input type="submit" value="Zapamiętaj Wybrane!"/>
+    </form>
+    <?php
 } else {
     echo "<h2>Brak zdjęć</h2>";
 }
 ?>
+

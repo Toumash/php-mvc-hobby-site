@@ -4,7 +4,7 @@ require_once ROOT . '/model/Database.php';
 
 abstract class DatabaseModel
 {
-    public $db;
+    protected $db;
 
     public function __construct()
     {

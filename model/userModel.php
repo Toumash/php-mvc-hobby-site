@@ -10,7 +10,7 @@ class UserModel extends DatabaseModel implements UserModelInterface
 
     public function isLoggedIn()
     {
-        if (isset($_SESSION[self::USER_KEY])) {
+        if (isset($_SESSION[self::USER_KEY]) && $_SESSION[self::USER_KEY] != null) {
             return true;
         } else {
             return false;
@@ -22,7 +22,7 @@ class UserModel extends DatabaseModel implements UserModelInterface
         $users = $this->db->selectCollection('users');
         $usr = $users->findOne(['login' => (string)$login], ['password' => true]);
         if ($usr && password_verify($password, $usr['password'])) {
-            $_SESSION[self::USER_KEY] = new User($usr['_id'], $usr['login'], $usr['email']);
+            $_SESSION[self::USER_KEY] = serialize(new User($usr['_id'], $usr['login'], $usr['email']));
             return true;
         }
         return false;
@@ -72,8 +72,11 @@ class UserModel extends DatabaseModel implements UserModelInterface
         return false;
     }
 
+    /**
+     * @return User
+     */
     public function getLoggedUser()
     {
-        return $_SESSION[self::USER_KEY];
+        return unserialize($_SESSION[self::USER_KEY]);
     }
 }

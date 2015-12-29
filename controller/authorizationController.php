@@ -35,7 +35,7 @@ class authorizationController extends controller
             $login = $_POST['login'];
             $password = $_POST['password'];
             if ($this->users->logIn($login, $password)) {
-                $this->redirectTo('user', 'profile');
+                $this->redirectTo('user', 'index');
             } else {
                 $this->setSessionError(self::LOGIN_ERROR, "Nieprawidłowy login i/lub hasło");
                 $this->redirectTo('authorization', 'login_form');
@@ -43,6 +43,12 @@ class authorizationController extends controller
         } else {
             $this->redirectTo('authorization', 'login_form');
         }
+    }
+    
+    public function logout()
+    {
+        $this->users->logOut();
+        $this->redirectTo('authorization', 'login_form');
     }
 
     public function register_form()

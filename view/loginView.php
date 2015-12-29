@@ -8,7 +8,7 @@ class loginView extends View
     {
         $this->set('title', 'Zaloguj się');
         $this->set('error', null);
-        $content = $this->render('login', false, '/templates/user');
+        $content = $this->render('user/login', false);
 
         $this->set('content', $content);
         $this->render('default', true);
@@ -18,7 +18,7 @@ class loginView extends View
     {
         $this->set('title', 'Zaloguj się');
         $this->set('error', $error);
-        $content = $this->render('login', false, '/templates/user');
+        $content = $this->render('user/login', false);
 
         $this->set('content', $content);
         $this->render('default', true);

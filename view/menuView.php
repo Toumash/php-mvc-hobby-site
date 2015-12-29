@@ -4,10 +4,10 @@ class menuView extends View
 {
     public function index()
     {
-        $items = ['Wstęp' => ['page', 'intro'],
-            'Podstawy C#' => ['page', 'tut'],
+        $items = ['Wstęp' => ['page', 'index', ['page' => 'intro']],
+            'Podstawy C#' => ['page', 'index', ['page' => 'tut']],
             'Galeria' => ['photo', 'index'],
-            'Kontakt' => ['page', 'contact']];
+            'Kontakt' => ['page', 'index', ['page' => 'contact']]];
         /** @var userModel $users */
         $users = Model::load('user');
         if (!$users->isLoggedIn()) {
@@ -17,7 +17,7 @@ class menuView extends View
         }
         $menuItems = [];
         foreach ($items as $item => $value) {
-            $menuItems[] = ['name' => $item, 'url' => $this->generateUrl($value[0], $value[1])];
+            $menuItems[] = ['name' => $item, 'url' => $this->generateUrl($value[0], $value[1], isset($value[2]) ? $value[2] : null)];
         }
         $this->set('menu-items', $menuItems);
         $this->render('menu', true);

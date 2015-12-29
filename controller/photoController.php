@@ -24,7 +24,8 @@ class photoController extends controller
         /** @var userModel $userModel */
         $userModel = Model::load('user');
 
-        $view->gallery($userModel->isLoggedIn(), $photos, $this->getSessionError('photo-upload'));
+        $remembered = $_SESSION['photo']['session-list'];
+        $view->gallery($userModel->isLoggedIn(), $photos, $remembered, $this->getSessionError('photo-upload'));
         $this->clearError('photo-upload');
     }
 
@@ -107,7 +108,7 @@ class photoController extends controller
         // server exceptions
         try {
             $name = basename($file["name"]);
-            $extension = substr($name, strlen($name) - 3);
+            $extension = substr($name, strlen($name) - 4);
             $uniID = uniqid("", true);
             $target_file = ROOT . self::uploadPath . $uniID . $extension;
 

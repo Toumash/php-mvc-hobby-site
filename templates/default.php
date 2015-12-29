@@ -26,7 +26,7 @@
     <nav>
         <label for="show-menu" class="show-menu">Pokaż Menu</label>
         <input type="checkbox" id="show-menu" role="button"/>
-        <?php View::load('menu')->index(); ?>
+        <?php $menuView = View::load('menu'); $menuView->index(); ?>
     </nav>
     <main id="main">
         <?php echo $this->get('content'); ?>

@@ -10,7 +10,7 @@ abstract class View
         $name = $name . 'View';
         try {
             if (is_file($path)) {
-                require $path;
+                require_once $path;
                 $ob = new $name();
             } else {
                 throw new Exception('Can not open view ' . $name . ' in: ' . $path);

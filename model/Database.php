@@ -21,8 +21,7 @@ class Database
                         'db' => $dbName,
                     ]);
             } catch (MongoConnectionException $e) {
-                echo $e->getMessage();
-                exit;
+                die($e->getMessage());
             }
             self::$db = $mongo->selectDB($dbName);;
         }

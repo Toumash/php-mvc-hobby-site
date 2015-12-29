@@ -8,7 +8,7 @@ abstract class Model
         $name = $name . 'Model';
         try {
             if (is_file($path)) {
-                require $path;
+                require_once $path;
                 return new $name();
 
             } else {

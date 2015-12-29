@@ -1,7 +1,9 @@
 <?php
+define('DEFAULT_FONT', ROOT . '/arial.ttf');
 
 class PhotoUtils
 {
+
     /**
      * Use example
      * <code>watermark("image2.jpg", "Copyright Toumash", "arial.ttf", 14);</code>
@@ -15,19 +17,27 @@ class PhotoUtils
      * Returns false if wrong extension
      * Returns null if system error occurs
      */
-    public static function watermark($src, $dest, $text, $size, $font = 'arial.ttf')
+    public static function watermark($src, $dest, $text, $size = 15, $font = DEFAULT_FONT)
     {
         $img = null;
-        $name = substr($src, 0, strlen($src) - 4);
-        $ext = substr($src, strlen($src) - 4);
+        $name = substr($src, 0, strlen($src) - 3);
+        $ext = substr($src, strlen($src) - 3);
         if (!in_array($ext, array('jpg', 'jpeg', 'png', 'gif'))) {
             return false;
         }
         switch ($ext) {
-            case 'gif':$img = imagecreatefromgif($src);break;
-            case 'jpg':$img = imagecreatefromjpeg($src);break;
-            case 'jpeg':$img = imagecreatefromjpeg($src);break;
-            case 'png':$img = imagecreatefrompng($src);break;
+            case 'gif':
+                $img = imagecreatefromgif($src);
+                break;
+            case 'jpg':
+                $img = imagecreatefromjpeg($src);
+                break;
+            case 'jpeg':
+                $img = imagecreatefromjpeg($src);
+                break;
+            case 'png':
+                $img = imagecreatefrompng($src);
+                break;
         }
         if (!$img) {
             return null;
@@ -47,10 +57,18 @@ class PhotoUtils
         imagettftext($img, $size, 0, $posX, $posY - 5, $color, $font, $text);
 
         switch ($ext) {
-            case 'gif':imagegif($img, $dest);break;
-            case 'png':imagepng($img, $dest);break;
-            case 'jpg':imagejpeg($img, $dest);break;
-            case 'jpeg':imagejpeg($img, $dest);break;
+            case 'gif':
+                imagegif($img, $dest);
+                break;
+            case 'png':
+                imagepng($img, $dest);
+                break;
+            case 'jpg':
+                imagejpeg($img, $dest);
+                break;
+            case 'jpeg':
+                imagejpeg($img, $dest);
+                break;
         }
         imagedestroy($img);
         return true;
@@ -59,7 +77,7 @@ class PhotoUtils
     public static function createThumbnail($src, $dest, $newWidth, $newHeight)
     {
         $source_image = imagecreatefromjpeg($src);
-        if(!$source_image){
+        if (!$source_image) {
             return false;
         }
 
@@ -78,25 +96,27 @@ class PhotoUtils
         return true;
     }
 
-    private static function minimime($fname) {
-        $fh=fopen($fname,'rb');
-        if ($fh) {
-            $bytes6=fread($fh,6);
-            fclose($fh);
-            if ($bytes6===false) return false;
-            if (substr($bytes6,0,3)=="\xff\xd8\xff") return 'image/jpeg';
-            if ($bytes6=="\x89PNG\x0d\x0a") return 'image/png';
-            if ($bytes6=="GIF87a" || $bytes6=="GIF89a") return 'image/gif';
-            return 'application/octet-stream';
-        }
-        return false;
-    }
-
-    public static function getMimeType($fileName){
-        if(!function_exists('finfo_open')){
+    public static function getMimeType($fileName)
+    {
+        if (!function_exists('finfo_open')) {
             return self::minimime($fileName);
         }
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         return finfo_file($finfo, $fileName);
+    }
+
+    private static function minimime($fname)
+    {
+        $fh = fopen($fname, 'rb');
+        if ($fh) {
+            $bytes6 = fread($fh, 6);
+            fclose($fh);
+            if ($bytes6 === false) return false;
+            if (substr($bytes6, 0, 3) == "\xff\xd8\xff") return 'image/jpeg';
+            if ($bytes6 == "\x89PNG\x0d\x0a") return 'image/png';
+            if ($bytes6 == "GIF87a" || $bytes6 == "GIF89a") return 'image/gif';
+            return 'application/octet-stream';
+        }
+        return false;
     }
 }

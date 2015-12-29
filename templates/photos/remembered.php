@@ -7,10 +7,11 @@ if (!empty($photos)) {
         <?php
         foreach ($photos as $photo):
             ?>
-            <div><a href=" <?php echo $photo->watermarkUrl ?>"><img src=" <?php echo $photo->thumbnailUrl ?>"
-                                                                    title="<?php echo $photo->title ?>"/></a>
+            <div><a href=" <?php echo USR_IMG . $photo->watermarkName ?>"><img
+                        src=" <?php echo USR_IMG . $photo->thumbnailName ?>"
+                        title="<?php echo $photo->title ?>"/></a>
                 <span><?php echo $photo->author ?></span>
-                <input type="checkbox" name="photo[]" value="<?php echo $photo->id ?>" title="Forget Image"/>
+                <input type="checkbox" name="photo[]" value="<?php echo $photo->_id ?>" title="Forget Image"/>
             </div>
         <?php endforeach; ?>
         <input type="submit" value="Usuń zaznaczone z zapamiętanych"/>

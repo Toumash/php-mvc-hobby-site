@@ -31,7 +31,13 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
     public function getAllPublicPhotos()
     {
         $data = $this->db->selectCollection('photos');
-        return $data->find(['public' => true]);
+        $result = $data->find(['public' => true]);
+
+        $photos = array();
+        foreach ($result as $photoData) {
+            $photos[] = self::photoFromArray($photoData);
+        }
+        return $photos;
     }
 
     public function getPhoto($id)
@@ -101,9 +107,9 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
 
     public static function photoToArray(Photo $photo)
     {
-        return ['original-url' => (string)$photo->originalUrl,
-            'thumbnail-url' => (string)$photo->thumbnailUrl,
-            'watermark-url' => (string)$photo->watermarkUrl,
+        return ['original-url' => (string)$photo->originalName,
+            'thumbnail-url' => (string)$photo->thumbnailName,
+            'watermark-url' => (string)$photo->watermarkName,
             'owner-id' => (int)$photo->ownerId,
             'title' => (string)$photo->title,
             'public' => (boolean)$photo->isPublic(),

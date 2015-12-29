@@ -14,10 +14,11 @@ $userName = $this->get('user-name');
 if (!empty($photos)) {
     foreach ($photos as $photo) {
         ?>
-        <div><a href=" <?php echo $photo->watermarkUrl ?>"><img src=" <?php echo $photo->thumbnailUrl ?>"
-                                                                title="<?php echo $photo->title ?>"/></a>
-            <span><?php echo $photo->isPublic()?'Publiczne':'Prywatne'; ?></span>
-            <input type="checkbox" name="photo[]" value="<?php echo $photo->id ?>" title="Save Image"/>
+        <div><a href=" <?php echo USR_IMG . $photo->watermarkName ?>"><img
+                    src=" <?php echo USR_IMG . $photo->thumbnailName ?>"
+                    title="<?php echo $photo->title ?>"/></a>
+            <span><?php echo $photo->isPublic() ? 'Publiczne' : 'Prywatne'; ?></span>
+            <input type="checkbox" name="photo[]" value="<?php echo $photo->_id ?>" title="Save Image"/>
         </div>
         <?php
     }

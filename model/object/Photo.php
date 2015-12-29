@@ -3,9 +3,9 @@
 class Photo
 {
     public $_id;
-    public $originalUrl;
-    public $thumbnailUrl;
-    public $watermarkUrl;
+    public $originalName;
+    public $thumbnailName;
+    public $watermarkName;
 
     /**
      * @var integer
@@ -22,9 +22,9 @@ class Photo
 
     public function __construct($url, $thumbnailUrl, $watermarkUrl, $title, $author, $_id = null, $public = true, User $owner = null)
     {
-        $this->originalUrl = $url;
-        $this->thumbnailUrl = $thumbnailUrl;
-        $this->watermarkUrl = $watermarkUrl;
+        $this->originalName = $url;
+        $this->thumbnailName = $thumbnailUrl;
+        $this->watermarkName = $watermarkUrl;
         $this->title = $title;
         $this->author = $author;
         $this->_id = $_id;

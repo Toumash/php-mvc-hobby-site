@@ -10,7 +10,6 @@ abstract class Model
             if (is_file($path)) {
                 require_once $path;
                 return new $name();
-
             } else {
                 throw new Exception('Can not open model ' . $name . ' in: ' . $path);
             }

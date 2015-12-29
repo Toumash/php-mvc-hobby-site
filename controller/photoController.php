@@ -4,7 +4,7 @@ require_once ROOT . '/util/photo_utils.php';
 class photoController extends controller
 {
 
-    const uploadPath = "\\web\\images/";
+    const uploadPath = "/web/usrimg/";
     const MAX_FILE_SIZE = 1000000;
     const THUMBNAIL_WIDTH = 200;
     const THUMBNAIL_HEIGHT = 125;
@@ -79,13 +79,14 @@ class photoController extends controller
 
     public function upload()
     {
+        /** @var stubUserModel $users */
+        $users = Model::load('User');
         $validTypes = ['image/png', 'image/jpeg', 'image/jpg'];
         // only user/ validation exceptions
         try {
-
             if (!isset($_POST)) {
                 throw new ValidationException("Brak wysłanych danych");
-            } else if (!isset($_FILES['file'], $_POST['watermark'], $_POST['author'], $_POST['title'])) {
+            } else if (!isset($_FILES['file'], $_POST['watermark'], $_POST['title']) && ($users->isLoggedIn() || isset($_POST['author']))) {
                 throw new ValidationException("Nie wprowadzono wszystkich wymaganych danych");
             }
             $file = isset($_FILES['file']) ? $_FILES['file'] : null;
@@ -105,7 +106,10 @@ class photoController extends controller
 
         // server exceptions
         try {
-            $target_file = ROOT . self::uploadPath . basename($file["name"]);
+            $name = basename($file["name"]);
+            $extension = substr($name, strlen($name) - 3);
+            $uniID = uniqid("", true);
+            $target_file = ROOT . self::uploadPath . $uniID . $extension;
 
             if (!move_uploaded_file($file["tmp_name"], $target_file)) {
                 $this->responseCode(500);
@@ -114,14 +118,15 @@ class photoController extends controller
             }
 
             $text = $_POST['watermark'];
-            $author = $_POST['author'];
+            $author = $users->isLoggedIn() ? $users->getLoggedUser()->login : $_GET['author'];
             $title = $_POST['title'];
             $public = $_POST['public'] == 'true';
-            $name = substr($target_file, 0, strlen($target_file) - 4);
-            $extension = substr($target_file, strlen($target_file - 4));
 
-            $watermarkedLocation = $name . 'watermark' . $extension;
-            $thumbnailLocation = $name . 'thumbnail' . $extension;
+            $watermarkName = $uniID . '_watermark' . $extension;
+            $thumbnailName = $uniID . '_thumbnail' . $extension;
+
+            $watermarkedLocation = ROOT . self::uploadPath . $watermarkName;
+            $thumbnailLocation = ROOT . self::uploadPath . $thumbnailName;
 
             if (!PhotoUtils::watermark($target_file, $watermarkedLocation, $text, 14)) {
                 throw new Exception("Nie mozna stworzyc znaku wodnego");
@@ -130,14 +135,12 @@ class photoController extends controller
                 throw new Exception("Nie mozna stworzyc miniaturki");
             }
 
-            /** @var stubUserModel $users */
-            $users = Model::load('User');
             $photo = null;
             if ($users->isLoggedIn()) {
                 $usr = $users->getLoggedUser();
-                $photo = new Photo($target_file, $thumbnailLocation, $watermarkedLocation, $title, $author, null, $public, $usr);
+                $photo = new Photo($target_file, $thumbnailName, $watermarkName, $title, $author, null, $public, $usr);
             } else {
-                $photo = new Photo($target_file, $thumbnailLocation, $watermarkedLocation, $title, $author);
+                $photo = new Photo($target_file, $thumbnailName, $watermarkName, $title, $author);
             }
             if (!$this->photoModel->add($photo)) {
                 throw new Exception("Nie mozna dodac zdjecia do bazy danych");
@@ -149,7 +152,9 @@ class photoController extends controller
             echo '500 Internal Server Error. Error code:' . $e->getMessage();
         }
     }
-    public function finder(){
+
+    public function finder()
+    {
         /** @var photoView $view */
         $view = View::load('photo');
         $view->finder();

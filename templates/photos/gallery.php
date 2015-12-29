@@ -11,7 +11,7 @@ $error = $this->get('photo-upload-error');
 <div style="margin-bottom: 2em;">
     <form action="<?php echo $this->generateUrl('photo', 'upload'); ?>" method="post" enctype="multipart/form-data">
         <input type="text" name="title" id="title" placeholder="Tytul" required/>
-        <?php if ($isLogged): ?>
+        <?php if (!$isLogged): ?>
             <input type="text" name="author" id="author" placeholder="Autor" required/>
         <?php endif; ?>
         <br/>
@@ -19,7 +19,7 @@ $error = $this->get('photo-upload-error');
         <input type="file" name="file" id="file" required/>
         <?php if ($isLogged): ?>
             Prywatność:
-            <label>Publiczne><input type="radio" name="public" id="author" value="true" checked="checked"/></label>
+            <label>Publiczne<input type="radio" name="public" id="author" value="true" checked="checked"/></label>
             <label>Prywatne<input type="radio" name="public" id="author" value="false"/></label>
         <?php endif; ?>
         <input type="submit" value="Wrzuć" name="submit"/>
@@ -36,10 +36,10 @@ if (!empty($photos)) {
         <?php
         foreach ($photos as $photo):
             ?>
-            <div><a href=" <?php echo $photo->watermarkUrl ?>"><img src=" <?php echo $photo->thumbnailUrl ?>"
-                                                                    title="<?php echo $photo->title ?>"/></a>
+            <div><a href=" <?php echo USR_IMG. $photo->watermarkName ?>"><img src=" <?php echo USR_IMG.$photo->thumbnailName ?>"
+                                                                              title="<?php echo $photo->title ?>"/></a>
                 <span><?php echo $photo->author ?></span>
-                <input type="checkbox" name="photo[]" value="<?php echo $photo->id ?>" title="Save Image"/>
+                <input type="checkbox" name="photo[]" value="<?php echo $photo->_id ?>" title="Save Image"/>
             </div>
         <?php endforeach; ?>
         <input type="submit" value="Zapamiętaj Wybrane!"/>

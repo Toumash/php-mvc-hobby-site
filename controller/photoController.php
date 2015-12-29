@@ -149,7 +149,24 @@ class photoController extends controller
             echo '500 Internal Server Error. Error code:' . $e->getMessage();
         }
     }
+    public function finder(){
+        /** @var photoView $view */
+        $view = View::load('photo');
+        $view->finder();
+    }
 
+    public function find_photos()
+    {
+        if (isset($_GET['title'])) {
+            $title = $_GET['title'];
+            $photos = $this->photoModel->getPublicPhotosWithTitle($title);
+            /** @var photoView $view */
+            $view = View::load('photo');
+            $view->ajaxFind($photos);
+        } else {
+            echo "Brak zdjęć o podanym tytule";
+        }
+    }
 
     public function init()
     {

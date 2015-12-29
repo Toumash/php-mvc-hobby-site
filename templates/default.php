@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <title><? echo $this->get('title'); ?></title>
+    <title><?php echo $this->get('title'); ?></title>
 
     <link href="style.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu+Mono"/>
@@ -29,7 +29,7 @@
         <?php View::load('menu')->index(); ?>
     </nav>
     <main id="main">
-        <? echo $this->get('content'); ?>
+        <?php echo $this->get('content'); ?>
         <span id="copyright"><a href="mailto:tomasz.dluski@juniornet.onmicrosoft.com">&copy; Tomasz Dłuski</a></span>
     </main>
 

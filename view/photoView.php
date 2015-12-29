@@ -39,4 +39,18 @@ class photoView extends View
         $this->set('content', $content);
         $this->render('default', true);
     }
+
+    public function ajaxFind($photos)
+    {
+        $this->set('photos', $photos);
+        $this->render('/photos/ajaxfind', true);
+    }
+
+    public function finder()
+    {
+        $this->set('title', 'Wyszukiwarka publicznych zdjęć');
+        $content = $this->render('/photos/finder', false);
+        $this->set('content', $content);
+        $this->render('default', true);
+    }
 }

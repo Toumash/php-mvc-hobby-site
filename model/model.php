@@ -2,7 +2,7 @@
 
 abstract class Model
 {
-    public static function load($name, $path = '\model/')
+    public static function load($name, $path = '/model/')
     {
         $path = ROOT . $path . $name . 'model.php';
         $name = $name . 'Model';

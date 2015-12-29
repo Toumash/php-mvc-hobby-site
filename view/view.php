@@ -25,7 +25,7 @@ abstract class View
         return $ob;
     }
 
-    public function render($name, $output = true, $path = '\\templates\\', $extension = '.php')
+    public function render($name, $output = true, $path = '/templates/', $extension = '.php')
     {
         $path = ROOT . $path . $name . $extension;
         try {

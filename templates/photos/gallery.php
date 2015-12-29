@@ -6,6 +6,8 @@ $error = $this->get('photo-upload-error');
 
 
 ?>
+<a href="<?php echo $this->generateUrl('photo', 'finder'); ?>">Wyszukiwarka Zdjęć</a>
+
 <div style="margin-bottom: 2em;">
     <form action="<?php echo $this->generateUrl('photo', 'upload'); ?>" method="post" enctype="multipart/form-data">
         <input type="text" name="title" id="title" placeholder="Tytul" required/>

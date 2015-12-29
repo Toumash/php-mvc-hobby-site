@@ -25,7 +25,7 @@ class pageView extends View
         }
     }
 
-    public function renderPage($name, $output = true, $path = '\pages/')
+    public function renderPage($name, $output = true, $path = '/pages/')
     {
         return $this->render($name, $output, $path, '.html');
     }

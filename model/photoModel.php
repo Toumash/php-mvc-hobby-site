@@ -7,6 +7,23 @@ require_once ROOT . '/model/DatabaseModel.php';
 
 class PhotoModel extends DatabaseModel implements PhotoModelInterface
 {
+    public function getPublicPhotosWithTitle($title)
+    {
+        $collection = $this->db->selectCollection('photos');
+        $data = $collection->find(['title' => new MongoRegex("/{$title}/i"), 'public' => true]);
+        $results = array();
+        foreach ($data as $item) {
+            array_push($results, self::photoFromArray($item));
+        }
+        return $results;
+    }
+
+    public static function photoFromArray(array $data)
+    {
+        $photo = new Photo($data['original-url'], $data['thumbnail-url'], $data['watermark-url'], $data['title'], $data['author'], $data['_id'], (boolean)$data['public']);
+        $photo->ownerId = $data['owner-id'];
+        return $photo;
+    }
 
     /**
      * @return Photo[]
@@ -27,13 +44,6 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
         } else {
             return null;
         }
-    }
-
-    public static function photoFromArray(array $data)
-    {
-        $photo = new Photo($data['original-url'], $data['thumbnail-url'], $data['watermark-url'], $data['title'], $data['author'], $data['_id'], $data['public']);
-        $photo->ownerId = $data['owner-id'];
-        return $photo;
     }
 
     public function getPhotos(array $ids)
@@ -80,12 +90,10 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
 
     /**
      * @param Photo $photo
-     * @param User $owner
      * @return bool
      */
-    public function add(Photo $photo, User $owner)
+    public function add(Photo $photo)
     {
-        $photo->ownerId = $owner->id;
         $photos = $this->db->selectCollection('photos');
         $obj = self::photoToArray($photo);
         return $photos->insert($obj);
@@ -93,12 +101,12 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
 
     public static function photoToArray(Photo $photo)
     {
-        return ['original-url' => $photo->originalUrl,
-            'thumbnail-url' => $photo->thumbnailUrl,
-            'watermark-url' => $photo->watermarkUrl,
+        return ['original-url' => (string)$photo->originalUrl,
+            'thumbnail-url' => (string)$photo->thumbnailUrl,
+            'watermark-url' => (string)$photo->watermarkUrl,
             'owner-id' => (int)$photo->ownerId,
-            'title' => $photo->title,
-            'public' => $photo->isPublic(),
-            'author' => $photo->author];
+            'title' => (string)$photo->title,
+            'public' => (boolean)$photo->isPublic(),
+            'author' => (string)$photo->author];
     }
 }

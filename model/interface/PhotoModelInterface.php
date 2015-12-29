@@ -17,10 +17,9 @@ interface PhotoModelInterface
 
     /**
      * @param Photo $photo
-     * @param User $owner
      * @return bool
      */
-    function add(Photo $photo, User $owner);
+    function add(Photo $photo);
 
     /**
      * @param $id string

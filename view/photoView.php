@@ -19,12 +19,13 @@ class photoView extends View
         $this->render('default', true);
     }
 
-    public function gallery($photos, $error)
+    public function gallery($isLogged, $photos, $error)
     {
         $this->set('photos', $photos);
+        $this->set('is-logged', $isLogged);
         $this->set('photo-upload-error', $error);
         $this->set('title', 'Galeria zdjęć użyszkodników');
-        $content = $this->render('gallery', false, '/templates/photos/');
+        $content = $this->render('photos/gallery', false);
 
         $this->set('content', $content);
         $this->render('default', true);
@@ -34,7 +35,7 @@ class photoView extends View
     {
         $this->set('photos', $photos);
         $this->set('title', 'Zdjęcia zapamiętane przez użytkownika');
-        $content = $this->render('remembered', false, '/templates/photos/');
+        $content = $this->render('/photos/remembered', false);
         $this->set('content', $content);
         $this->render('default', true);
     }

@@ -1,8 +1,5 @@
 <?php
 
-class ValidationException extends Exception
-{
-}
 
 class authorizationController extends controller
 {

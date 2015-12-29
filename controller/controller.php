@@ -1,5 +1,7 @@
 <?php
-
+class ValidationException extends Exception
+{
+}
 abstract class controller
 {
     public final function __construct()

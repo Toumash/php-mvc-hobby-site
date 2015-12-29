@@ -21,7 +21,10 @@ class photoController extends controller
 
         /** @var photoView $view */
         $view = View::load('photo');
-        $view->gallery($photos, $this->getSessionError('photo-upload'));
+        /** @var userModel $userModel */
+        $userModel = Model::load('user');
+
+        $view->gallery($userModel->isLoggedIn(), $photos, $this->getSessionError('photo-upload'));
         $this->clearError('photo-upload');
     }
 
@@ -62,11 +65,10 @@ class photoController extends controller
             $remembered = array_diff($_SESSION['photo']['session-list'], $_POST['photo']);
             $_SESSION['photo']['session-list'] = $remembered;
         }
-
-        $this->redirectTo('photo', 'index');
+        $this->redirectTo('photo', 'remembered');
     }
 
-    public function show_remembered()
+    public function remembered()
     {
         $ids = $_SESSION['photo']['session-list'];
         $photos = $this->photoModel->getPhotos($ids);
@@ -78,74 +80,76 @@ class photoController extends controller
     public function upload()
     {
         $validTypes = ['image/png', 'image/jpeg', 'image/jpg'];
-        $error = null;
+        // only user/ validation exceptions
+        try {
 
-        if (!isset($_POST)) {
-            $error = "Brak wysłanych danych";
-        } else if (!isset($_FILES['file'], $_POST['watermark'], $_POST['author'], $_POST['title'])) {
-            $error = "Nie wprowadzono wszystkich wymaganych danych";
-        }
-        $file = isset($_FILES['file']) ? $_FILES['file'] : null;
-        if ($file['size'] > self::MAX_FILE_SIZE) {
-            $error = "Zdjecie przekracza dopuszczalny rozmiar";
-        } else {
-            $mime = PhotoUtils::getMimeType($file['tmp_name']);
-            if (!in_array($mime, $validTypes)) {
-                $error = 'Niedozwolone rozszerzenie. Lista poprawnych: ' . join(',', $validTypes);
+            if (!isset($_POST)) {
+                throw new ValidationException("Brak wysłanych danych");
+            } else if (!isset($_FILES['file'], $_POST['watermark'], $_POST['author'], $_POST['title'])) {
+                throw new ValidationException("Nie wprowadzono wszystkich wymaganych danych");
             }
-        }
-
-        if ($error != null) {
+            $file = isset($_FILES['file']) ? $_FILES['file'] : null;
+            if ($file['size'] > self::MAX_FILE_SIZE) {
+                throw new ValidationException("Zdjecie przekracza dopuszczalny rozmiar");
+            } else {
+                $mime = PhotoUtils::getMimeType($file['tmp_name']);
+                if (!in_array($mime, $validTypes)) {
+                    throw new ValidationException('Niedozwolone rozszerzenie. Lista poprawnych: ' . join(',', $validTypes));
+                }
+            }
+        } catch (ValidationException $e) {
             $this->redirectTo('photo', 'index');
-            $this->setSessionError('photo-upload', $error);
+            $this->setSessionError('photo-upload', $e->getMessage());
             return;
         }
 
-        $target_file = ROOT . self::uploadPath . basename($file["name"]);
+        // server exceptions
+        try {
+            $target_file = ROOT . self::uploadPath . basename($file["name"]);
 
-        if (!move_uploaded_file($file["tmp_name"], $target_file)) {
-            $this->responseCode(500);
-            echo "500 Internal Server Error";
-            return;
-        }
+            if (!move_uploaded_file($file["tmp_name"], $target_file)) {
+                $this->responseCode(500);
+                echo "500 Internal Server Error";
+                return;
+            }
 
-        $text = $_POST['watermark'];
-        $author = $_POST['author'];
-        $title = $_POST['title'];
-        $name = substr($target_file, 0, strlen($target_file) - 4);
-        $extension = substr($target_file, strlen($target_file - 4));
+            $text = $_POST['watermark'];
+            $author = $_POST['author'];
+            $title = $_POST['title'];
+            $public = $_POST['public'] == 'true';
+            $name = substr($target_file, 0, strlen($target_file) - 4);
+            $extension = substr($target_file, strlen($target_file - 4));
 
-        $watermarkedLocation = $name . 'watermark' . $extension;
-        $thumbnailLocation = $name . 'thumbnail' . $extension;
+            $watermarkedLocation = $name . 'watermark' . $extension;
+            $thumbnailLocation = $name . 'thumbnail' . $extension;
 
-        if (!PhotoUtils::watermark($target_file, $watermarkedLocation, $text, 14)) {
-            $error = "Nie mozna stworzyc znaku wodnego";
-        }
-        if (!PhotoUtils::createThumbnail($target_file, $thumbnailLocation, self::THUMBNAIL_WIDTH, self::THUMBNAIL_HEIGHT)) {
-            $error = "Nie mozna stworzyc miniaturki";
-        }
+            if (!PhotoUtils::watermark($target_file, $watermarkedLocation, $text, 14)) {
+                throw new Exception("Nie mozna stworzyc znaku wodnego");
+            }
+            if (!PhotoUtils::createThumbnail($target_file, $thumbnailLocation, self::THUMBNAIL_WIDTH, self::THUMBNAIL_HEIGHT)) {
+                throw new Exception("Nie mozna stworzyc miniaturki");
+            }
 
-        /** @var stubUserModel $users */
-        $users = Model::load('User');
-        $usr = null;
-        if (!$users->isLoggedIn()) {
-            $usr = User::anonymous();
-        } else {
-            $usr = $users->getLoggedUser();
-        }
+            /** @var stubUserModel $users */
+            $users = Model::load('User');
+            $photo = null;
+            if ($users->isLoggedIn()) {
+                $usr = $users->getLoggedUser();
+                $photo = new Photo($target_file, $thumbnailLocation, $watermarkedLocation, $title, $author, null, $public, $usr);
+            } else {
+                $photo = new Photo($target_file, $thumbnailLocation, $watermarkedLocation, $title, $author);
+            }
+            if (!$this->photoModel->add($photo)) {
+                throw new Exception("Nie mozna dodac zdjecia do bazy danych");
+            }
 
-        if (!$this->photoModel->add(new Photo($target_file, $thumbnailLocation, $watermarkedLocation, $title, $author), $usr)) {
-            $error = "Nie mozna dodac zdjecia do bazy danych";
-        }
-
-        if ($error == null) {
             $this->redirectTo('photo', 'index');
-            echo 'OK, przekierowuję....';
-        } else {
+        } catch (Exception $e) {
             $this->responseCode(500);
-            echo '500 Internal Server Error. Error code:' . $error;
+            echo '500 Internal Server Error. Error code:' . $e->getMessage();
         }
     }
+
 
     public function init()
     {

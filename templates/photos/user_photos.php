@@ -1,13 +1,25 @@
-<h1><? echo $this->get('user-name'); ?></h1>
+<?php
+/** @var Photo[] $photos */
+$photos = $this->get('photos');
+$error = $this->get('photo-upload-error');
+$userName = $this->get('user-name');
+
+?>
+
+
+<h1><? echo $userName ?></h1>
 
 
 <?php
-/** @var Photo $photo */
-$photos = $this->get('photos');
 if (!empty($photos)) {
     foreach ($photos as $photo) {
-        echo "<img src=\"{$photo->originalUrl}\" title=\"{$photo->title}\"/>";
-        echo "<span>{$photo->ownerId}</span>";
+        ?>
+        <div><a href=" <?php echo $photo->watermarkUrl ?>"><img src=" <?php echo $photo->thumbnailUrl ?>"
+                                                                title="<?php echo $photo->title ?>"/></a>
+            <span><?php echo $photo->isPublic()?'Publiczne':'Prywatne'; ?></span>
+            <input type="checkbox" name="photo[]" value="<?php echo $photo->id ?>" title="Save Image"/>
+        </div>
+        <?php
     }
 } else {
     echo "<h2>Brak zdjęć</h2>";

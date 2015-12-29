@@ -34,9 +34,7 @@ class authorizationController extends controller
         if (isset($_POST['login']) && isset($_POST['password'])) {
             $login = $_POST['login'];
             $password = $_POST['password'];
-            /** @var userModel $users */
-            $users = Model::load('user');
-            if ($users->logIn($login, $password)) {
+            if ($this->users->logIn($login, $password)) {
                 $this->redirectTo('user', 'profile');
             } else {
                 $this->setSessionError(self::LOGIN_ERROR, "Nieprawidłowy login i/lub hasło");
@@ -67,7 +65,7 @@ class authorizationController extends controller
             return;
         }
         try {
-            if (!isset($_POST['login']) && !isset($_POST['password']) && !isset($_POST['password_repeat']) && !isset($_POST['email'])) {
+            if (!isset($_POST['login']) || !isset($_POST['password']) || !isset($_POST['password_repeat']) || !isset($_POST['email'])) {
                 throw new ValidationException("Nie wprowadzono wszystkich danych");
             }
             $login = $_POST['login'];
@@ -87,7 +85,7 @@ class authorizationController extends controller
             if ($this->users->loginExists($login)) {
                 throw new ValidationException("Podany login już istnieje");
             }
-            if(!$this->users->emailExists($email)){
+            if ($this->users->emailExists($email)) {
                 throw new ValidationException("Podany email już istnieje");
             }
             if(!$this->users->register($login, $password, $email)){

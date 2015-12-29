@@ -10,3 +10,5 @@ if ($error != null) {
     echo "<span>{$error}</span>";
 }
 ?>
+<br/>
+<span>Nie masz konta?<strong><a href="<?php echo $this->generateUrl('authorization', 'register_form'); ?>">Zarejestruj się!</a></strong></span>

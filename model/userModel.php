@@ -19,11 +19,9 @@ class UserModel extends DatabaseModel implements UserModelInterface
 
     public function logIn($login, $password)
     {
-        $hash = password_hash($password, PASSWORD_DEFAULT);
-
         $users = $this->db->selectCollection('users');
-        $usr = $users->findOne(['login' => (string)$login, 'password' => (string)$hash]);
-        if ($usr) {
+        $usr = $users->findOne(['login' => (string)$login], ['password' => true]);
+        if ($usr && password_verify($password, $usr['password'])) {
             $_SESSION[self::USER_KEY] = new User($usr['_id'], $usr['login'], $usr['email']);
             return true;
         }
@@ -46,9 +44,10 @@ class UserModel extends DatabaseModel implements UserModelInterface
             return false;
         }
         $users = $this->db->selectCollection('users');
+        $hash = password_hash($password, PASSWORD_DEFAULT);
         $obj = [
             'login' => (string)$login,
-            'password' => (string)$password,
+            'password' => (string)$hash,
             'email' => (string)$email
         ];
         $users->insert($obj);

@@ -4,6 +4,7 @@
 class authorizationController extends controller
 {
     const REGISTRATION_ERROR = 'registration-error';
+    const LOGIN_ERROR = 'login-error';
     /**
      * @var stubUserModel $users
      */
@@ -22,11 +23,27 @@ class authorizationController extends controller
         }
         /** @var loginView $loginView */
         $loginView = View::load('login');
-        $err = $this->getSessionError('login-error');
-        if($err != null) {
-            $loginView->error($err);
-        }else{
-            $loginView->index();
+        $err = $this->getSessionError(self::LOGIN_ERROR);
+        $loginView->index($err);
+
+        $this->clearError(self::LOGIN_ERROR);
+    }
+
+    public function login()
+    {
+        if (isset($_POST['login']) && isset($_POST['password'])) {
+            $login = $_POST['login'];
+            $password = $_POST['password'];
+            /** @var userModel $users */
+            $users = Model::load('user');
+            if ($users->logIn($login, $password)) {
+                $this->redirectTo('user', 'profile');
+            } else {
+                $this->setSessionError(self::LOGIN_ERROR, "Nieprawidłowy login i/lub hasło");
+                $this->redirectTo('authorization', 'login_form');
+            }
+        } else {
+            $this->redirectTo('authorization', 'login_form');
         }
     }
 
@@ -39,9 +56,9 @@ class authorizationController extends controller
         $errors = $this->getSessionError(self::REGISTRATION_ERROR);
         /** @var registrationView $registerView */
         $registerView = View::load('registration');
-        if($errors != null){
+        if ($errors != null) {
             $registerView->error($errors);
-        }else{
+        } else {
             $registerView->index();
         }
     }
@@ -64,7 +81,7 @@ class authorizationController extends controller
             if (strlen($login) < 3) {
                 throw new ValidationException("Wybrany login jest zbyt krótki");
             }
-            if (!strcmp($password, $password_repeat) === 0) {
+            if (!strcmp($password, $password_repeat) !== 0) {
                 throw new ValidationException("Wprowadzone hasła różnią się");
             }
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

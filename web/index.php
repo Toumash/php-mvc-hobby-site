@@ -3,6 +3,7 @@ define('ROOT', dirname(__DIR__));
 ini_set('error_log',ROOT.'/script_errors.log');
 ini_set('log_errors','On');
 ini_set('display_errors','Off');
+
 require ROOT . '/dispatcher.php';
 session_start();
 define('DEFAULT_CONTROLLER', 'page');

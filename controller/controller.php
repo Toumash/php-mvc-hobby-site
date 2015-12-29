@@ -1,13 +1,17 @@
 <?php
+
 class ValidationException extends Exception
 {
 }
+
 abstract class controller
 {
     public final function __construct()
     {
         $this->init();
-        $_SESSION['errors'] = array();
+        if (!isset($_SESSION['errors'])) {
+            $_SESSION['errors'] = array();
+        }
     }
 
     abstract public function init();
@@ -20,12 +24,7 @@ abstract class controller
 
     public function clearError($name)
     {
-        unset($_SESSION['errors'][$name]);
-    }
-
-    public function setSessionError($name, $message)
-    {
-        $_SESSION['errors'][$name] = $message;
+        $_SESSION['errors'][$name] = null;
     }
 
     public function redirect($url)
@@ -33,10 +32,16 @@ abstract class controller
         header("location: " . $url);
     }
 
-    public function pleaseLogin(){
+    public function pleaseLogin()
+    {
         $msg = "Część witryny dostępna jest dopiero po zalogowaniu";
-        $this->setSessionError('login-error',$msg);
-        $this->redirectTo('authorization','login_form');
+        $this->setSessionError('login-error', $msg);
+        $this->redirectTo('authorization', 'login_form');
+    }
+
+    public function setSessionError($name, $message)
+    {
+        $_SESSION['errors'][$name] = $message;
     }
 
     public function redirectTo($controller, $action, $params = null)

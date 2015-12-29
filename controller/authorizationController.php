@@ -56,11 +56,7 @@ class authorizationController extends controller
         $errors = $this->getSessionError(self::REGISTRATION_ERROR);
         /** @var registrationView $registerView */
         $registerView = View::load('registration');
-        if ($errors != null) {
-            $registerView->error($errors);
-        } else {
-            $registerView->index();
-        }
+        $registerView->index($errors);
     }
 
     public function register()
@@ -92,6 +88,7 @@ class authorizationController extends controller
             }
 
             $this->users->register($login, $password, $email);
+            die('yay');
             $this->redirectTo('authorization', 'confirmation');
         } catch (ValidationException $e) {
             $this->setSessionError(self::REGISTRATION_ERROR, $e->getMessage());

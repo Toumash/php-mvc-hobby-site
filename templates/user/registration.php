@@ -1,4 +1,4 @@
-<form action="<?php echo $this->generateUrl('user', 'register'); ?>" method="post">
+<form action="<?php echo $this->generateUrl('authorization', 'register'); ?>" method="post">
     <input type="text" name="login" placeholder="login"/>
     <input type="email" name="email" placeholder="someone@example.com"/>
     <input type="password" name="password" placeholder="xxxxxxx"/>
@@ -9,6 +9,6 @@
 
 <?php
 $error = $this->get('error');
-if (!empty($error)) {
+if ($error != null) {
     echo "<span style=\"color:red;font-size:130%;\">{$error}</span>";
 }

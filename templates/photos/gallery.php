@@ -32,28 +32,36 @@ $rememberedPhotos = $this->get('remembered-photos');
 if (!empty($error)) {
     echo "<span style='color:red''>" . htmlentities($error) . "</span>";
 }
-if (!empty($photos)) {
-    ?>
-    <form method="post" action="<?php echo $this->generateUrl('photo', 'remember'); ?>">
-        <?php
-        foreach ($photos as $photo):
-            ?>
-            <div><a href=" <?php echo USR_IMG . $photo->watermarkName ?>"><img
-                        src=" <?php echo USR_IMG . $photo->thumbnailName ?>"
-                        title="<?php echo $photo->title ?>"/></a>
-                <span><?php echo $photo->author ?></span>
-                <input type="checkbox" name="photo[]"
-                       <?php if (in_array($photo->_id, $rememberedPhotos)) { // if in the array of memorized by user, then check the checkbox
-                           echo 'checked="true"';
-                       } ?>value="<?php echo $photo->_id ?>" title="Save Image"/>
-            </div>
-        <?php endforeach; ?>
-        <input type="submit" value="Zapamiętaj Wybrane!"/>
-    </form>
-    <?php
-} else {
-    echo "<h2>Brak zdjęć</h2>";
-}
 ?>
+<div class="images">
+    <?php
+    if (!empty($photos)) {
+        ?>
+        <form method="post" action="<?php echo $this->generateUrl('photo', 'remember'); ?>">
+            <?php
+            /** @var Photo $photo */
+            foreach ($photos as $photo):
+                ?>
+                <div class="image"><a href=" <?php echo USR_IMG . $photo->watermarkName ?>"><img
+                            src=" <?php echo USR_IMG . $photo->thumbnailName ?>"
+                            title="<?php echo $photo->title ?>"/></a>
+                    <br/>
+                    <span><?php echo $photo->author ?></span>
+                    <input type="checkbox" name="photo[]"
+                           <?php if (in_array($photo->_id->{'$id'}, $rememberedPhotos)) { // if in the array of memorized by user, then check the checkbox
+                               echo 'checked="true"';
+                           } ?>value="<?php echo $photo->_id->{'$id'} ?>" title="Save Image"/>
+                </div>
+            <?php endforeach; ?>
+            <input type="submit" value="Zapamiętaj Wybrane!"/>
+        </form>
+        <?php
+    } else {
+        echo "<h2>Brak zdjęć</h2>";
+    }
+    ?>
+</div>
+<div>
 <a href="<?php echo $this->generateUrl('photo', 'remembered') ?>">Pokaż zapamiętane</a>
+</div>
 

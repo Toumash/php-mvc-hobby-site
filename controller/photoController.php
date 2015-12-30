@@ -14,7 +14,6 @@ class photoController extends controller
      */
     private $photoModel;
 
-
     public function index()
     {
         $photos = $this->photoModel->getAllPublicPhotos();
@@ -44,6 +43,11 @@ class photoController extends controller
         /** @var photoView $view */
         $view = View::load('photo');
         $view->userPhotos($user, $photos);
+    }
+
+    public function deleteAllPhotos()
+    {
+        $this->photoModel->deleteAll();
     }
 
     public function remember()
@@ -123,6 +127,7 @@ class photoController extends controller
             $title = $_POST['title'];
             $public = $_POST['public'] == 'true';
 
+            $originalName = $uniID . $extension;
             $watermarkName = $uniID . '_watermark' . $extension;
             $thumbnailName = $uniID . '_thumbnail' . $extension;
 
@@ -138,10 +143,11 @@ class photoController extends controller
 
             $photo = null;
             if ($users->isLoggedIn()) {
+                /** @var User $usr */
                 $usr = $users->getLoggedUser();
-                $photo = new Photo($target_file, $thumbnailName, $watermarkName, $title, $author, null, $public, $usr);
+                $photo = new Photo($originalName, $thumbnailName, $watermarkName, $title, $author, null, $public, $usr->_id);
             } else {
-                $photo = new Photo($target_file, $thumbnailName, $watermarkName, $title, $author);
+                $photo = new Photo($originalName, $thumbnailName, $watermarkName, $title, $author);
             }
             if (!$this->photoModel->add($photo)) {
                 throw new Exception("Nie mozna dodac zdjecia do bazy danych");
@@ -177,5 +183,9 @@ class photoController extends controller
     public function init()
     {
         $this->photoModel = Model::load('photo');
+
+        if (!isset($_SESSION['photo']['session-list'])) {
+            $_SESSION['photo']['session-list'] = array();
+        }
     }
 }

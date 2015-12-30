@@ -1,28 +1,27 @@
 <?php
 /** @var Photo[] $photos */
 $photos = $this->get('photos');
-$error = $this->get('photo-upload-error');
-$userName = $this->get('user-name');
+$userName = $this->get('login');
 
 ?>
 
 
-<h1><? echo $userName ?></h1>
+<h1>Prywatna galeria: <?php echo $userName ?></h1>
 
-
-<?php
-if (!empty($photos)) {
-    foreach ($photos as $photo) {
-        ?>
-        <div><a href=" <?php echo USR_IMG . $photo->watermarkName ?>"><img
-                    src=" <?php echo USR_IMG . $photo->thumbnailName ?>"
-                    title="<?php echo $photo->title ?>"/></a>
-            <span><?php echo $photo->isPublic() ? 'Publiczne' : 'Prywatne'; ?></span>
-            <input type="checkbox" name="photo[]" value="<?php echo $photo->_id ?>" title="Save Image"/>
-        </div>
-        <?php
+<div class="images">
+    <?php
+    if (!empty($photos)) {
+        foreach ($photos as $photo) {
+            ?>
+            <div class="image"><a href=" <?php echo USR_IMG . $photo->watermarkName ?>"><img
+                        src=" <?php echo USR_IMG . $photo->thumbnailName ?>"/><br/><span><?php echo $photo->title ?></span>
+                    <?php if (!$photo->isPublic()): ?> <img src="/images/lock.png"
+                                                            alt="locked(private)"> <?php endif; ?></a>
+            </div>
+            <?php
+        }
+    } else {
+        echo "<h2>Brak zdjęć</h2>";
     }
-} else {
-    echo "<h2>Brak zdjęć</h2>";
-}
-?>
+    ?>
+</div>

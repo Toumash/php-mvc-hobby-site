@@ -20,9 +20,7 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
 
     public static function photoFromArray(array $data)
     {
-        $photo = new Photo($data['original-url'], $data['thumbnail-url'], $data['watermark-url'], $data['title'], $data['author'], $data['_id'], (boolean)$data['public']);
-        $photo->ownerId = $data['owner-id'];
-        return $photo;
+        return new Photo($data['original-url'], $data['thumbnail-url'], $data['watermark-url'], $data['title'], $data['author'], $data['_id'], (boolean)$data['public'], $data['owner-id']);
     }
 
     /**
@@ -57,7 +55,7 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
         $photos = $this->db->selectCollection('photos');
         $mongoIds = array();
         foreach ($ids as $id) {
-            $mongoIds[] = new MongoId($id);
+            $mongoIds[] = $id instanceof MongoId ? $id : new MongoId($id);
         }
         $result = $photos->find(['_id' => ['$in' => $mongoIds]]);
         $results = array();
@@ -90,8 +88,9 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
 
     public function exists($id)
     {
+        if (empty($id)) return false;
         $photos = $this->db->selectCollection('photos');
-        return $photos->findOne(['_id' => new MongoId($id)]) ? true : false;
+        return $photos->findOne(['_id' => $id instanceof MongoId ? $id : new MongoId($id)]) ? true : false;
     }
 
     /**
@@ -110,9 +109,15 @@ class PhotoModel extends DatabaseModel implements PhotoModelInterface
         return ['original-url' => (string)$photo->originalName,
             'thumbnail-url' => (string)$photo->thumbnailName,
             'watermark-url' => (string)$photo->watermarkName,
-            'owner-id' => (int)$photo->ownerId,
+            'owner-id' => $photo->ownerId,
             'title' => (string)$photo->title,
             'public' => (boolean)$photo->isPublic(),
             'author' => (string)$photo->author];
+    }
+
+    public function deleteAll()
+    {
+        $photos = $this->db->selectCollection('photos');
+        $photos->remove([]);
     }
 }

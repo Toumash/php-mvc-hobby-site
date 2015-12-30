@@ -8,11 +8,12 @@ class photoView extends View
      * @param $user User
      * @param $photos Photo[]
      */
-    public function userPhotos($user, $photos)
+    public function userPhotos(User $user, $photos)
     {
 
-        $this->set('user-name', $user->login);
+        $this->set('login', $user->login);
         $this->set('photos', $photos);
+        $this->set('title', 'Zdjęcia użytkownika ' . $user->login);
         $content = $this->render('photos/user_photos', false);
 
         $this->set('content', $content);

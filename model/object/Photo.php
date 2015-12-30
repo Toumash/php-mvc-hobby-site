@@ -2,25 +2,25 @@
 
 class Photo
 {
+    /**
+     * @var MongoId
+     */
     public $_id;
     public $originalName;
     public $thumbnailName;
     public $watermarkName;
 
     /**
-     * @var integer
+     * @var MongoId
      */
     public $ownerId;
-    /**
-     * @var User
-     */
-    public $owner;
+
     public $author;
 
     public $title;
     private $public;
 
-    public function __construct($url, $thumbnailUrl, $watermarkUrl, $title, $author, $_id = null, $public = true, User $owner = null)
+    public function __construct($url, $thumbnailUrl, $watermarkUrl, $title, $author, $_id = null, $public = true, MongoId $ownerId = null)
     {
         $this->originalName = $url;
         $this->thumbnailName = $thumbnailUrl;
@@ -29,14 +29,11 @@ class Photo
         $this->author = $author;
         $this->_id = $_id;
         $this->public = $public;
-        $this->owner = $owner;
-        if ($owner != null) {
-            $this->ownerId = $this->owner->_id;
-            $this->author = $owner->login;
-        }
+        $this->ownerId = $ownerId;
     }
 
-    public function isPublic()
+    public
+    function isPublic()
     {
         return $this->public;
     }

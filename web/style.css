@@ -176,6 +176,14 @@ textarea {
     width: inherit;
 }
 
+.images {
+}
+
+.image {
+    position: relative;
+    float: left;
+}
+
 @media screen and (max-width: 760px) {
     header h1 {
         padding-top: .8em;

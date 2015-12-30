@@ -16,7 +16,9 @@ $rememberedPhotos = $this->get('remembered-photos');
         <?php endif; ?>
         <br/>
         <input type="text" name="watermark" id="watermark" placeholder="Znak wodny" required/>
+        <br/>
         <input type="file" name="file" id="file" required/>
+        <br/>
         <?php if ($isLogged): ?>
             Prywatność:
             <label>Publiczne<input type="radio" name="public" id="author" value="true" checked="checked"/></label>

@@ -15,7 +15,7 @@ $userName = $this->get('login');
             ?>
             <div class="image"><a href=" <?php echo USR_IMG . $photo->watermarkName ?>"><img
                         src=" <?php echo USR_IMG . $photo->thumbnailName ?>"/><br/><span><?php echo $photo->title ?></span>
-                    <?php if (!$photo->isPublic()): ?> <img src="/images/lock.png"
+                    <?php if (!$photo->isPublic()): ?> <img class="image-noresize" src="/images/lock.png"
                                                             alt="locked(private)"> <?php endif; ?></a>
             </div>
             <?php

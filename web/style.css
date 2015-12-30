@@ -240,6 +240,10 @@ textarea {
         width: 100%;
     }
 
+    main .image-noresize {
+        width: auto;
+    }
+
     div.container,
     header,
     main,

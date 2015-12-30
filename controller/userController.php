@@ -28,7 +28,7 @@ class userController extends controller
     public function photos()
     {
         if (!$this->userModel->isLoggedIn()) {
-            $this->redirectTo('user', 'login_form');
+            $this->redirectTo('authorization', 'login_form');
         }
         /** @var photoModel $photoModel */
         $photoModel = Model::load('photo');

@@ -16,7 +16,6 @@ abstract class controller
 
     abstract public function init();
 
-
     public function getSessionError($name)
     {
         return isset($_SESSION['errors'][$name]) ? $_SESSION['errors'][$name] : null;

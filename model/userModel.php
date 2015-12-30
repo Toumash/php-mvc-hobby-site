@@ -22,6 +22,7 @@ class UserModel extends DatabaseModel implements UserModelInterface
         $users = $this->db->selectCollection('users');
         $usr = $users->findOne(['login' => (string)$login]);
         if ($usr && password_verify($password, $usr['password'])) {
+            die(print_r($usr['_id']));
             $user = new User($usr['_id'], $usr['login'], $usr['email']);
             $_SESSION[self::USER_KEY] = serialize($user);
             return true;

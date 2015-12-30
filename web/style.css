@@ -183,6 +183,9 @@ textarea {
     position: relative;
     float: left;
 }
+main .image-noresize {
+    width: auto;
+}
 
 @media screen and (max-width: 760px) {
     header h1 {

@@ -30,8 +30,10 @@ class Photo
         $this->_id = $_id;
         $this->public = $public;
         $this->owner = $owner;
-        $this->ownerId = $this->owner->_id;
-        $this->author = $owner->login;
+        if ($owner != null) {
+            $this->ownerId = $this->owner->_id;
+            $this->author = $owner->login;
+        }
     }
 
     public function isPublic()

@@ -82,6 +82,9 @@ class authorizationController extends controller
             if (strlen($login) < 3) {
                 throw new ValidationException("Wybrany login jest zbyt krótki");
             }
+            if (strlen($password) < 4) {
+                throw new ValidationException("Wybrane hasło jest za krótkie");
+            }
             if ($password !== $password_repeat) {
                 throw new ValidationException("Wprowadzone hasła różnią się");
             }
@@ -94,7 +97,7 @@ class authorizationController extends controller
             if ($this->users->emailExists($email)) {
                 throw new ValidationException("Podany email już istnieje");
             }
-            if(!$this->users->register($login, $password, $email)){
+            if (!$this->users->register($login, $password, $email)) {
                 throw new ValidationException("Błąd");
             }
             $this->redirectTo('authorization', 'login_form');
@@ -107,10 +110,5 @@ class authorizationController extends controller
     public function index()
     {
         $this->responseCode(404);
-    }
-
-    public function confirmation()
-    {
-
     }
 }

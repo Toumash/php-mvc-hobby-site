@@ -6,7 +6,8 @@ $error = $this->get('photo-upload-error');
 $rememberedPhotos = $this->get('remembered-photos');
 
 ?>
-<a href="<?php echo $this->generateUrl('photo', 'finder'); ?>">Wyszukiwarka Zdjęć</a>
+<h2>Galeria Zdjęć</h2>
+<a href="<?php echo $this->generateUrl('photo', 'finder'); ?>">Wyszukaj zdjęcia</a>
 
 <div style="margin-bottom: 2em;">
     <form action="<?php echo $this->generateUrl('photo', 'upload'); ?>" method="post" enctype="multipart/form-data">

@@ -6,7 +6,7 @@ class PhotoUtils
 
     /**
      * Use example
-     * <code>watermark("image2.jpg", "Copyright Toumash", "arial.ttf", 14);</code>
+     * <code>watermark("image2.jpg", "Copyright Toumash", 14, "arial.ttf");</code>
      * @param $src string path to original file
      * @param $dest string new image destination path
      * @param $text string text to be drawn

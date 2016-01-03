@@ -5,7 +5,9 @@ $user = $this->get('user');
 <span>Email: <?php echo $user->email ?></span>
 
 <br/>
-<strong><a class="btn" href="<?php echo $this->generateUrl('user', 'photos'); ?>">Moje zdjęcia</a></strong>
+<br/>
+<br/>
+<strong><a class="btn btn-success" href="<?php echo $this->generateUrl('user', 'photos'); ?>">Moje zdjęcia</a></strong>
 
 <br/><br/>
 

@@ -8,8 +8,9 @@ $rememberedPhotos = $this->get('remembered-photos');
 ?>
 <h2>Galeria Zdjęć</h2>
 <a class="btn" href="<?php echo $this->generateUrl('photo', 'finder'); ?>">Wyszukaj zdjęcia</a>
-
+<br/>
 <div style="margin-bottom: 2em;">
+    <h3>Wgrywanie obrazków</h3>
     <form action="<?php echo $this->generateUrl('photo', 'upload'); ?>" method="post" enctype="multipart/form-data">
         <input type="text" name="title" id="title" placeholder="Tytul" required/>
         <?php if (!$isLogged): ?>

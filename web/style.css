@@ -189,14 +189,11 @@ main .image-noresize {
 }
 
 .btn {
-    -webkit-border-radius: 28px;
-    -moz-border-radius: 28px;
-    border-radius: 28px;
+    border-radius: 4px;
     color: #ffffff;
     background: #337AB7;
     border-color:#2E6DA4;
     padding: 10px 20px 10px 20px;
-    text-decoration: none;
 }
 .btn-success{
    background-color: #5CB85C;

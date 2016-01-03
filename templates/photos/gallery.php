@@ -7,7 +7,7 @@ $rememberedPhotos = $this->get('remembered-photos');
 
 ?>
 <h2>Galeria Zdjęć</h2>
-<a class="btn" href="<?php echo $this->generateUrl('photo', 'finder'); ?>">Wyszukaj zdjęcia</a>
+
 <br/>
 <div style="margin-bottom: 2em;">
     <h3>Wgrywanie obrazków</h3>
@@ -35,6 +35,7 @@ if (!empty($error)) {
     echo "<span style='color:red''>" . htmlentities($error) . "</span>";
 }
 ?>
+<a class="btn" href="<?php echo $this->generateUrl('photo', 'finder'); ?>">Wyszukiwarka</a>     <a class="btn btn-success" href="<?php echo $this->generateUrl('photo', 'remembered') ?>">Zapamiętane</a>
 <div class="images">
     <?php
     if (!empty($photos)) {
@@ -62,8 +63,5 @@ if (!empty($error)) {
         echo "<h2>Brak zdjęć</h2>";
     }
     ?>
-</div>
-<div>
-    <a class="btn btn-success" href="<?php echo $this->generateUrl('photo', 'remembered') ?>">Pokaż zapamiętane</a>
 </div>
 

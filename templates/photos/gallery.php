@@ -7,7 +7,7 @@ $rememberedPhotos = $this->get('remembered-photos');
 
 ?>
 <h2>Galeria Zdjęć</h2>
-<a href="<?php echo $this->generateUrl('photo', 'finder'); ?>">Wyszukaj zdjęcia</a>
+<a class="btn" href="<?php echo $this->generateUrl('photo', 'finder'); ?>">Wyszukaj zdjęcia</a>
 
 <div style="margin-bottom: 2em;">
     <form action="<?php echo $this->generateUrl('photo', 'upload'); ?>" method="post" enctype="multipart/form-data">
@@ -21,10 +21,10 @@ $rememberedPhotos = $this->get('remembered-photos');
         <input type="file" name="file" id="file" required/>
         <br/>
         <?php if ($isLogged): ?>
-            Prywatność:
-            <label>Publiczne<input type="radio" name="public" id="author" value="true" checked="checked"/></label>
+            <label>Publiczne<input type="radio" name="public" id="author" value="true" checked="checked"/></label><br/>
             <label>Prywatne<input type="radio" name="public" id="author" value="false"/></label>
         <?php endif; ?>
+        <br/>
         <input type="submit" value="Wrzuć" name="submit"/>
     </form>
 </div>
@@ -63,6 +63,6 @@ if (!empty($error)) {
     ?>
 </div>
 <div>
-<a href="<?php echo $this->generateUrl('photo', 'remembered') ?>">Pokaż zapamiętane</a>
+    <a class="btn btn-success" href="<?php echo $this->generateUrl('photo', 'remembered') ?>">Pokaż zapamiętane</a>
 </div>
 

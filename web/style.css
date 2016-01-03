@@ -192,11 +192,17 @@ main .image-noresize {
     border-radius: 4px;
     color: #ffffff;
     background: #337AB7;
-    border-color:#2E6DA4;
+    border-color: #2E6DA4;
     padding: 10px 20px 10px 20px;
+    text-decoration: none;
 }
-.btn-success{
-   background-color: #5CB85C;
+
+.btn:hover {
+    text-decoration: none;
+}
+
+.btn-success {
+    background-color: #5CB85C;
     border-color: #4CAE4C;
 }
 

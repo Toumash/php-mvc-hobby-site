@@ -183,8 +183,24 @@ textarea {
     position: relative;
     float: left;
 }
+
 main .image-noresize {
     width: auto;
+}
+
+.btn {
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    border-radius: 28px;
+    color: #ffffff;
+    background: #3498db;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #3cb0fd;
+    text-decoration: none;
 }
 
 @media screen and (max-width: 760px) {

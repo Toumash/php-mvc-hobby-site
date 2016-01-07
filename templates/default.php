@@ -7,15 +7,15 @@
 
     <title><?php echo $this->get('title'); ?></title>
 
-    <link href="style.css" rel="stylesheet" type="text/css"/>
+    <link href="/style.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu+Mono"/>
     <!--[if lt IE 9]>
-    <script src="script/html5shiv.min.js"></script>
+    <script src="/script/html5shiv.min.js"></script>
     <![endif]-->
 
-    <script src="script/jquery-1.11.3.min.js"></script>
-    <script src="script/jquery-ui.min.js"></script>
-    <script src="script/main.js"></script>
+    <script src="/script/jquery-1.11.3.min.js"></script>
+    <script src="/script/jquery-ui.min.js"></script>
+    <script src="/script/main.js"></script>
 </head>
 <body>
 

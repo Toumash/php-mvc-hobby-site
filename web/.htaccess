@@ -1,5 +1,6 @@
 RewriteEngine On
+
+RewriteRule ^page/(.*)$ index.php&c=page&page=$1 [QSA,L]
+RewriteRule ^(.+)/(.+)$ index.php&c=$1&a=$2 [QSA,L]
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^/page/(.*)$ index.php&c=page&page=$1 [QSA,L]
-RewriteRule ^/([^-]+)/([^-]+)$ index.php&c=$1&a=$2 [QSA,L]
-RewriteRule ^/(.*)$ index.php [QSA,L]
+RewriteRule ^(.*)$ index.php [QSA,L]

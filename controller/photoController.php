@@ -94,6 +94,14 @@ class photoController extends controller
             } else if (!isset($_FILES['file'], $_POST['watermark'], $_POST['title']) && ($users->isLoggedIn() || isset($_POST['author']))) {
                 throw new ValidationException("Nie wprowadzono wszystkich wymaganych danych");
             }
+            if(!$users->isLoggedIn()){
+                if (!preg_match("/[a-z0-9_]+/i", $_POST['author'])) {
+                throw new ValidationException("Autor może składać się tylko z cyfr, licz oraz z podkreślenia");
+                }
+            }
+            if (!preg_match("/[a-z0-9]+ [a-z0-9]+/i", $_POST['title'])) {
+                throw new ValidationException("Tytuł może składać się tylko z liter, cyfr oraz spacji");
+            }
             $file = isset($_FILES['file']) ? $_FILES['file'] : null;
             if ($file['size'] > self::MAX_FILE_SIZE) {
                 throw new ValidationException("Zdjecie przekracza dopuszczalny rozmiar");

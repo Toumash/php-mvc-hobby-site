@@ -99,7 +99,7 @@ class photoController extends controller
                 throw new ValidationException("Autor może składać się tylko z cyfr, licz oraz z podkreślenia");
                 }
             }
-            if (!preg_match("/[a-z0-9]+ [a-z0-9]+/i", $_POST['title'])) {
+            if (!preg_match("/[a-z0-9 ]+/i", $_POST['title'])) {
                 throw new ValidationException("Tytuł może składać się tylko z liter, cyfr oraz spacji");
             }
             $file = isset($_FILES['file']) ? $_FILES['file'] : null;

@@ -82,6 +82,13 @@ class authorizationController extends controller
             if (strlen($login) < 3) {
                 throw new ValidationException("Wybrany login jest zbyt krótki");
             }
+            if (!preg_match("/[a-z0-9_]+/i", $login)) {
+                throw new ValidationException("Login może składać się tylko z liter,cyfr oraz z podkreślenia");
+            }
+            if ($this->users->loginExists($login)) {
+                throw new ValidationException("Podany login już istnieje");
+            }
+
             if (strlen($password) < 4) {
                 throw new ValidationException("Wybrane hasło jest za krótkie");
             }
@@ -90,12 +97,6 @@ class authorizationController extends controller
             }
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 throw new ValidationException("Podany adres email jest nieprawidłowy");
-            }
-            if (!preg_match("/[a-z0-9_]+/i", $login)) {
-                throw new ValidationException("Login może składać się tylko z liter,cyfr oraz z podkreślenia");
-            }
-            if ($this->users->loginExists($login)) {
-                throw new ValidationException("Podany login już istnieje");
             }
             if ($this->users->emailExists($email)) {
                 throw new ValidationException("Podany email już istnieje");

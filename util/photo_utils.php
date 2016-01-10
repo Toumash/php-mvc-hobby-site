@@ -76,7 +76,25 @@ class PhotoUtils
 
     public static function createThumbnail($src, $dest, $newWidth, $newHeight)
     {
-        $source_image = imagecreatefromjpeg($src);
+        $ext = substr($src, strlen($src) - 3);
+        if (!in_array($ext, array('jpg', 'jpeg', 'png', 'gif'))) {
+            return false;
+        }
+        $source_image = null;
+        switch ($ext) {
+            case 'gif':
+                $source_image = imagecreatefromgif($src);
+                break;
+            case 'jpg':
+                $source_image = imagecreatefromjpeg($src);
+                break;
+            case 'jpeg':
+                $source_image = imagecreatefromjpeg($src);
+                break;
+            case 'png':
+                $source_image = imagecreatefrompng($src);
+                break;
+        }
         if (!$source_image) {
             return false;
         }
@@ -90,8 +108,21 @@ class PhotoUtils
 
         imagecopyresampled($img, $source_image, 0, 0, 0, 0, $newWidth, $desired_height, $width, $height);
         imagedestroy($source_image);
-
-        imagejpeg($img, $dest);
+        switch ($ext) {
+            case 'gif':
+                imagegif($img, $dest);
+                break;
+            case 'png':
+                imagepng($img, $dest);
+                break;
+            case 'jpg':
+                imagejpeg($img, $dest);
+                break;
+            case 'jpeg':
+                imagejpeg($img, $dest);
+                break;
+        }
+        imagedestroy($img);
         imagedestroy($img);
         return true;
     }
